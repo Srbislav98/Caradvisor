@@ -1,0 +1,57 @@
+package rules;
+dialect  "mvel"
+
+import com.sw.projekat.dto.OsobaQueryDTO
+import com.sw.projekat.model.Osoba
+import com.sw.projekat.model.enums.*
+
+global OsobaQueryDTO qOsoba
+
+rule "Osoba je samac"
+    agenda-group "based_on_person"
+    when
+        $osoba:Osoba(qOsoba.getBrojClanovaPorodice()==1)
+    then
+        System.out.println("Osoba je samac(" + $osoba.getId()+")");
+        modify($osoba){setBrojClanovaPorodice(BrojClanovaPorodice.SAMAC)}
+end
+rule "Osoba zivi kao par"
+    agenda-group "based_on_person"
+    when
+        $osoba:Osoba(qOsoba.getBrojClanovaPorodice()==2)
+    then
+        System.out.println("Osoba zivi kao par(" + $osoba.getId()+")");
+        modify($osoba){setBrojClanovaPorodice(BrojClanovaPorodice.SAMAC)}
+end
+rule "Osoba zivi sa viseclanom porodici"
+    agenda-group "based_on_person"
+    when
+        $osoba:Osoba(qOsoba.getBrojClanovaPorodice()>2)
+    then
+        System.out.println("Osoba zivi sa viseclanom porodicom(" + $osoba.getId()+")");
+        modify($osoba){setBrojClanovaPorodice(BrojClanovaPorodice.VISECLANA_PORODICA)}
+end
+rule "Osoba je mlada"
+    agenda-group "based_on_person"
+    when
+        $osoba:Osoba(qOsoba.getGodiste()<=30)
+    then
+        System.out.println("Osoba je mlada(" + $osoba.getId()+")");
+        modify($osoba){setGodiste(Godiste.MLADA_OSOBA)}
+end
+rule "Osoba je srednjih godina"
+    agenda-group "based_on_person"
+    when
+        $osoba:Osoba(qOsoba.getGodiste()>30 && qOsoba.getGodiste()<=55)
+    then
+        System.out.println("Osoba je srednjih godina(" + $osoba.getId()+")");
+        modify($osoba){setGodiste(Godiste.SREDNJE_GODINE)}
+end
+rule "Osoba je starije"
+    agenda-group "based_on_person"
+    when
+        $osoba:Osoba(qOsoba.getGodiste()>55)
+    then
+        System.out.println("Osoba je starija(" + $osoba.getId()+")");
+        modify($osoba){setGodiste(Godiste.STARIJA_OSOBA)}
+end
