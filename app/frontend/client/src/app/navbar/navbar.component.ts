@@ -53,6 +53,12 @@ export class NavbarComponent implements OnInit {
   goToProfile() {
     this.router.navigateByUrl('/profil');
   }
+  addCar() {
+    this.router.navigateByUrl('/addCar');
+  }
+  chooseCar() {
+    this.router.navigateByUrl('/chooseCar');
+  }
 
   logOut() {
     //this.authenticationService.logout().subscribe(

@@ -1,0 +1,68 @@
+package rules;
+dialect  "mvel"
+
+import com.sw.projekat.model.AutomobilQuery
+import com.sw.projekat.model.Automobil
+import com.sw.projekat.model.Osoba
+import com.sw.projekat.model.User
+import com.sw.projekat.model.enums.*
+import com.sw.projekat.model.DodatneKarakteristike
+import java.util.ArrayList
+
+rule "Porodicni automobil"
+    agenda-group "based_on_car_and_person"
+    salience 20
+    when
+        $osoba:Osoba(getGodiste()==Godiste.SREDNJE_GODINE,getBrojClanovaPorodice()==BrojClanovaPorodice.VISECLANA_PORODICA)
+        $automobil:Automobil(getKaroserija()==Karoserija.DZIP|| getKaroserija()==Karoserija.KARAVAN || getKaroserija()==Karoserija.MINIVAN)
+    then
+        System.out.println("Porodicni automobil(" + $automobil.getId()+")");
+        modify($automobil){getDodatneKarakteristike().setPorodicni(true)}
+        modify($automobil){addToScore(5)}
+end
+rule "Porodicni automobil - dodatno"
+    agenda-group "based_on_car_and_person"
+    salience 10
+    when
+//        $automobil:Automobil(getDodatneKarakteristike().isPorodicni()==false)
+        $osoba:Osoba(getGodiste()==Godiste.SREDNJE_GODINE,getBrojClanovaPorodice()==BrojClanovaPorodice.VISECLANA_PORODICA)
+        $automobil:Automobil(getKaroserija()==Karoserija.DZIP|| getKaroserija()==Karoserija.KARAVAN || getKaroserija()==Karoserija.MINIVAN)
+        $user:User(isSearched("karavan") ||isSearched("minivan")  || isSearched("dzip") )
+    then
+        System.out.println("DA LI JE PORODICNI AUTO: "+$automobil.getDodatneKarakteristike().isPorodicni());
+        System.out.println("Porodicni automobil - dodatno(" + $automobil.getId()+")");
+        modify($automobil){addToScore(5)}
+end
+rule "Muski automobil"
+    agenda-group "based_on_car_and_person"
+    salience 20
+    when
+        $osoba:Osoba(getPol()==Pol.M)
+//        $automobil:Automobil(getDodatneKarakteristike().isMuskaBoja()==true)
+        $automobil:Automobil(getBoja() memberOf new Boja[]{Boja.SIVA,Boja.BRAON,Boja.CRNA})
+    then
+        System.out.println("Muski automobil(" + $automobil.getId()+")");
+        modify($automobil){addToScore(5)}
+end
+rule "Zenski automobil"
+    agenda-group "based_on_car_and_person"
+    salience 20
+    when
+        $osoba:Osoba(getPol()==Pol.Z)
+//        $automobil:Automobil(getDodatneKarakteristike().isZenskaBoja()==true)
+        $automobil:Automobil(getBoja() memberOf new Boja[]{Boja.NARANDZASTA,Boja.CRVENA,Boja.LJUBICASTA})
+    then
+        System.out.println("Zenski automobil(" + $automobil.getId()+")");
+        modify($automobil){addToScore(5)}
+end
+rule "Automobil za posao"
+    agenda-group "based_on_car_and_person"
+    salience 20
+    when
+        $osoba:Osoba(isZaposlenost(),MestoPrebivalista.GRAD!=getMestoPrebivalista())
+        $automobil:Automobil(getKaroserija()==Karoserija.DZIP|| getKaroserija()==Karoserija.KARAVAN || getKaroserija()==Karoserija.MINIVAN)
+    then
+        System.out.println("Automobil za posao(" + $automobil.getId()+")");
+        modify($automobil){addToScore(5)}
+end
+

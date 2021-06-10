@@ -11,8 +11,8 @@ INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 1);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 1);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 2);
 
-INSERT INTO AUTOMOBIL(id,marka,karoserija,cena,godiste,gorivo,klima,kubikaza,boja,score) VALUES (1,'BMW','LIMUZINA',5000,1998,'BENZIN',true,80,'BELA',0);
-INSERT INTO AUTOMOBIL(id,marka,karoserija,cena,godiste,gorivo,klima,kubikaza,boja,score) VALUES (2,'Audi','HECBEK',6000,2008,'BENZIN',false,95,'CRNA',0);
-INSERT INTO AUTOMOBIL(id,marka,karoserija,cena,godiste,gorivo,klima,kubikaza,boja,score) VALUES (3,'Porsche','KUPE',7000,2018,'ELEKTRICNI_POGON',true,120,'ZUTA',0);
-INSERT INTO AUTOMOBIL(id,marka,karoserija,cena,godiste,gorivo,klima,kubikaza,boja,score) VALUES (4,'Renault','KABRIOLET',4000,2012,'DIZEL',true,60,'CRVENA',0);
-INSERT INTO AUTOMOBIL(id,marka,karoserija,cena,godiste,gorivo,klima,kubikaza,boja,score) VALUES (5,'Mercedes','LIMUZINA',3000,2000,'BENZIN_GAS',false,50,'SIVA',0);
+INSERT INTO AUTOMOBIL(naziv,marka,karoserija,cena,godiste,gorivo,klima,kubikaza,boja,score) VALUES ('BMW X6','BMW','LIMUZINA',5000,1998,'BENZIN',true,80,'BELA',0);
+INSERT INTO AUTOMOBIL(naziv,marka,karoserija,cena,godiste,gorivo,klima,kubikaza,boja,score) VALUES ('Audi A8','Audi','HECBEK',6000,2008,'BENZIN',false,95,'CRNA',0);
+INSERT INTO AUTOMOBIL(naziv,marka,karoserija,cena,godiste,gorivo,klima,kubikaza,boja,score) VALUES ('Porsche cayena','Porsche','KUPE',7000,2018,'ELEKTRICNI_POGON',true,120,'ZUTA',0);
+INSERT INTO AUTOMOBIL(naziv,marka,karoserija,cena,godiste,gorivo,klima,kubikaza,boja,score) VALUES ('Renault megane','Renault','KABRIOLET',4000,2012,'DIZEL',true,60,'CRVENA',0);
+INSERT INTO AUTOMOBIL(naziv,marka,karoserija,cena,godiste,gorivo,klima,kubikaza,boja,score) VALUES ('Mercedes benz','Mercedes','KARAVAN',3000,2000,'BENZIN_GAS',false,50,'SIVA',0);

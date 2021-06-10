@@ -14,6 +14,11 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { HomeComponent } from './home/home.component';
+import { CarListComponent } from './cars/car-list/car-list.component';
+import { CarTableComponent } from './cars/car-table/car-table.component';
+import { CarDetailsComponent } from './cars/car-details/car-details.component';
+import { PaginationComponent } from './pagination/pagination.component';
+import { CarAddComponent } from './cars/car-add/car-add.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,12 @@ import { HomeComponent } from './home/home.component';
     LoginComponent,
     SignupComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    CarListComponent,
+    CarTableComponent,
+    CarDetailsComponent,
+    PaginationComponent,
+    CarAddComponent
   ],
   imports: [
     BrowserModule,

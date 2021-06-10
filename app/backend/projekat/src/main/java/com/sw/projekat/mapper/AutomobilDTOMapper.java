@@ -9,7 +9,7 @@ import com.sw.projekat.model.AutomobilQuery;
 public class AutomobilDTOMapper {
     public static Automobil fromDTO(AutomobilDTO dto){
         Automobil aut=new Automobil();
-        aut.setId(dto.getId());
+        aut.setNaziv(dto.getNaziv());
         aut.setBoja(dto.getBoja());
         aut.setCena(dto.getCena());
         aut.setGodiste(dto.getGodiste());
@@ -18,12 +18,12 @@ public class AutomobilDTOMapper {
         aut.setKlima(dto.isKlima());
         aut.setKubikaza(dto.getKubikaza());
         aut.setMarka(dto.getMarka());
-
+        aut.setScore(dto.getScore());
         return aut;
     }
     public static AutomobilDTO toDTO(Automobil aut){
         AutomobilDTO dto=new AutomobilDTO();
-        dto.setId(aut.getId());
+        dto.setNaziv(aut.getNaziv());
         dto.setBoja(aut.getBoja());
         dto.setCena(aut.getCena());
         dto.setGodiste(aut.getGodiste());

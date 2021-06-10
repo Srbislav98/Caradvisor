@@ -1,0 +1,23 @@
+<div class="w-100 h-100 p-3">
+	<a class="btn btn-success mx-sm-1 mb-2" routerLink="/add-car" role="button" *ngIf="uloga==='ROLE_ADMIN'" id="add_kp">Add car</a>
+	<h1 style="margin: 0 auto;text-align: center;">CarAdvisor</h1>
+	<form [formGroup]="regForm1" (ngSubmit)="regIn()" class="form-inline">
+		<div class="form-group mx-sm-0 mb-2">
+		  <input type="text" class="form-control" id="podatak" formControlName="podatak" placeholder="search by content...">
+		</div>
+    <button type="submit" class="btn btn-secondary mb-2" id="filter_content">Search</button>
+	<button class="btn btn-primary mb-2"  id="reset-button" (click)="ngOnInit()">Reset</button>
+	</form>
+	<div class="row">
+		<div class="col">
+            <app-car-table [cars]="carList"></app-car-table>
+        </div>
+    </div>
+	<div class="row">
+		<div class="col">
+			<app-pagination [totalItems]="totalSize" [pageSize]="pageSize"
+				(pageSelected)="changePage($event)">
+			</app-pagination>
+		</div>
+	</div>
+</div>

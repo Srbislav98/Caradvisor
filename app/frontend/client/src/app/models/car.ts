@@ -1,0 +1,24 @@
+export class Car{
+    id:number;
+    marka:string;
+    karoserija:number;
+    cena:number;
+    godiste:number;
+    gorivo:number;
+    klima:boolean;
+    kubikaza:number;
+    boja:number;
+    score:number;
+    constructor(id:number,marka:string,karoserija:number,cena:number,godiste:number,gorivo:number,klima:boolean,kubikaza:number,boja:number,score:number){
+        this.id=id;
+        this.marka=marka;
+        this.karoserija=karoserija;
+        this.cena=cena;
+        this.godiste=godiste;
+        this.gorivo=gorivo;
+        this.klima=klima;
+        this.kubikaza=kubikaza;
+        this.boja=boja;
+        this.score=score;
+    }
+}

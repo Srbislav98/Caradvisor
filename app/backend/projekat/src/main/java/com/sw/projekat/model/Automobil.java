@@ -6,15 +6,13 @@ import com.sw.projekat.model.enums.Karoserija;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity(name = "automobil")
 public class Automobil implements Comparable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String naziv;
 
     @Column
     private String marka;
@@ -52,11 +50,14 @@ public class Automobil implements Comparable{
     @Column
     private int score;
 
+    @OneToOne(cascade={CascadeType.ALL})
+    private DodatneKarakteristike dodatneKarakteristike = new DodatneKarakteristike();
+
     public Automobil() {
     }
 
-    public Automobil(Long id, String marka, Karoserija karoserija, int cena, int godiste, Gorivo gorivo, boolean klima, int kubikaza, Boja boja, Set<Review> reviews, Double averagereview, int score) {
-        this.id = id;
+    public Automobil(String id, String marka, Karoserija karoserija, int cena, int godiste, Gorivo gorivo, boolean klima, int kubikaza, Boja boja, Set<Review> reviews, Double averagereview, int score) {
+        this.naziv = id;
         this.marka = marka;
         this.karoserija = karoserija;
         this.cena = cena;
@@ -70,12 +71,25 @@ public class Automobil implements Comparable{
         this.score = score;
     }
 
-    public Long getId() {
-        return id;
+    public Automobil(String id, String marka, Karoserija karoserija, int cena, int godiste, Gorivo gorivo, boolean klima, int kubikaza, Boja boja, int score) {
+        this.naziv = id;
+        this.marka = marka;
+        this.karoserija = karoserija;
+        this.cena = cena;
+        this.godiste = godiste;
+        this.gorivo = gorivo;
+        this.klima = klima;
+        this.kubikaza = kubikaza;
+        this.boja = boja;
+        this.score=score;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getNaziv() {
+        return naziv;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 
     public String getMarka() {
@@ -168,6 +182,14 @@ public class Automobil implements Comparable{
     public void addToScore(int score) {
 
         this.score +=score;
+    }
+
+    public DodatneKarakteristike getDodatneKarakteristike() {
+        return dodatneKarakteristike;
+    }
+
+    public void setDodatneKarakteristike(DodatneKarakteristike dodatneKarakteristike) {
+        this.dodatneKarakteristike = dodatneKarakteristike;
     }
 
     @Override

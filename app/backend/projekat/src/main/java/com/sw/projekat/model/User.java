@@ -175,4 +175,14 @@ public class User implements UserDetails {
     public void setDetaljna_pretraga(Set<Automobil> detaljna_pretraga) {
         this.detaljna_pretraga = detaljna_pretraga;
     }
+
+    public boolean isSearched(String rijec){
+
+        for(String i:pretraga){
+            if (i.toLowerCase().contains(rijec.toLowerCase())){
+                return true;
+            }
+        }
+        return false;
+    }
 }

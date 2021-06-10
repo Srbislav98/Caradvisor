@@ -21,7 +21,7 @@ rule "Osoba zivi kao par"
         $osoba:Osoba(qOsoba.getBrojClanovaPorodice()==2)
     then
         System.out.println("Osoba zivi kao par(" + $osoba.getId()+")");
-        modify($osoba){setBrojClanovaPorodice(BrojClanovaPorodice.SAMAC)}
+        modify($osoba){setBrojClanovaPorodice(BrojClanovaPorodice.PAR)}
 end
 rule "Osoba zivi sa viseclanom porodici"
     agenda-group "based_on_person"

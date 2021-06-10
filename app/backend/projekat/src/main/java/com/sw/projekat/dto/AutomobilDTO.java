@@ -6,15 +6,15 @@ import com.sw.projekat.model.enums.Boja;
 import com.sw.projekat.model.enums.Gorivo;
 import com.sw.projekat.model.enums.Karoserija;
 
-import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class AutomobilDTO {
+public class AutomobilDTO implements Comparable{
 
 
-    private Long id;
+    private String naziv;
 
     private String marka;
 
@@ -37,11 +37,11 @@ public class AutomobilDTO {
 
     private int score;
 
-    public AutomobilDTO() {
-    }
+    public AutomobilDTO(){
 
-    public AutomobilDTO(Long id, String marka, Karoserija karoserija, int cena, int godiste, Gorivo gorivo, boolean klima, int kubikaza, Boja boja, Set<Review> reviews, Double averagereview, int score) {
-        this.id = id;
+    }
+    public AutomobilDTO(String id, String marka, Karoserija karoserija, int cena, int godiste, Gorivo gorivo, boolean klima, int kubikaza, Boja boja, Set<Review> reviews, Double averagereview, int score) {
+        this.naziv = id;
         this.marka = marka;
         this.karoserija = karoserija;
         this.cena = cena;
@@ -55,12 +55,12 @@ public class AutomobilDTO {
         this.score = score;
     }
 
-    public Long getId() {
-        return id;
+    public String getNaziv() {
+        return naziv;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 
     public String getMarka() {
@@ -150,5 +150,14 @@ public class AutomobilDTO {
     public void setScore(int score) {
         this.score = score;
     }
+    public void addToScore(int score) {
+
+        this.score +=score;
+    }
+    @Override
+    public int compareTo(Object o) {
+        return Integer.compare(this.getScore(),((AutomobilDTO) o).getScore());
+    }
+
 }
 

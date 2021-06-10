@@ -1,0 +1,31 @@
+<table class="table table-striped pera">
+    <thead>
+      <tr>
+        <th>Id<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+        <th>Marka <button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+        <th>Karoserija<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+        <th></th>
+        <th *ngIf="uloga==='ROLE_ADMIN'"></th>
+        <th *ngIf="uloga==='ROLE_ADMIN'"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <div *ngIf="cars?.length === 0 || cars === undefined" style="float:right;">
+        <h4><b>No cars</b></h4>
+      </div>
+      <tr *ngFor="let car of cars">
+        <td class="in_waves">{{car.id}}</td>
+        <td>{{car.marka}}</td>
+        <td>{{car.karoserija}}</td>
+        <td>
+          <button mat-raised-button color="primary" id="car_detaljno" routerLink="/car-detaljno/{{car.id}}">Detailed</button>
+        </td>
+        <td *ngIf="uloga==='ROLE_ADMIN'">
+            <a class="btn btn-secondary" routerLink="/edit-car/{{car.id}}" role="button" id="edit_car">Edit</a>
+        </td>
+        <td *ngIf="uloga==='ROLE_ADMIN'">
+          <button button type="button" class="btn btn-danger" (click)="Obrisi(car)" id="delete_car">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

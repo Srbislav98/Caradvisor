@@ -86,7 +86,7 @@ rule "Godište automobila je u rangu ± 5 "
         (getGodiste()<=q.getGodiste()+5))
     then
         System.out.println("Godište automobila je u rangu ± 5 (" + $automobil.getId()+")");
-        modify($automobil){addToScore(20)}
+        modify($automobil){addToScore(20)};
 end
 rule "Godište automobila je u rangu ± 10 "
     agenda-group "based_on_car"
@@ -128,7 +128,7 @@ end
 rule "Klima u automobilu"
     agenda-group "based_on_car"
     when
-        $automobil:Automobil(isKlima()==true)
+        $automobil:Automobil(isKlima()==true,q.isKlima()==true)
     then
         System.out.println("Klima u automobilu(" + $automobil.getId()+")");
         modify($automobil){addToScore(5)}
@@ -167,7 +167,7 @@ end
 rule "Tacna boja automobila"
     agenda-group "based_on_car"
     when
-        $automobil:Automobil(q.getBoja() memberOf getBoja())
+        $automobil:Automobil(q.getBoja() == getBoja())
     then
         System.out.println("Tacna boja automobila(" + $automobil.getId()+")");
         modify($automobil){addToScore(10)}
@@ -180,6 +180,7 @@ rule "Slicna grupa boje automobila - zenska "
          || getBoja()==Boja.LJUBICASTA))
     then
         System.out.println("Slicna grupa boje automobila - zenska(" + $automobil.getId()+")");
+        modify($automobil){getDodatneKarakteristike().setZenskaBoja(true)}
         modify($automobil){addToScore(5)}
 end
 rule "Slicna grupa boje automobila - muska "
@@ -190,5 +191,6 @@ rule "Slicna grupa boje automobila - muska "
          || getBoja()==Boja.SIVA))
     then
         System.out.println("Slicna grupa boje automobila - muska(" + $automobil.getId()+")");
+        modify($automobil){getDodatneKarakteristike().setMuskaBoja(true)}
         modify($automobil){addToScore(5)}
 end

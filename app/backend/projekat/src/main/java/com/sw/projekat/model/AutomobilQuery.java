@@ -56,6 +56,7 @@ public class AutomobilQuery {
         this.boja = boja;
     }
 
+
     public Long getId() {
         return id;
     }

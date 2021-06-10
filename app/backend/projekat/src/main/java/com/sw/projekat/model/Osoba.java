@@ -37,6 +37,12 @@ public class Osoba {
         this.brojClanovaPorodice = brojClanovaPorodice;
     }
 
+    public Osoba(Pol pol, boolean b, MestoPrebivalista selo) {
+        this.pol = pol;
+        this.zaposlenost = b;
+        this.mestoPrebivalista = selo;
+    }
+
     public Long getId() {
         return id;
     }
