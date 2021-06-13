@@ -44,6 +44,9 @@ public class Automobil implements Comparable{
     @OneToMany()
     private Set<Review> reviews = new HashSet<Review>();
 
+    @OneToMany( mappedBy = "automobil", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Fotografija> fotografija = new HashSet<>();
+
     @Column
     private Double averagereview;
 
@@ -190,6 +193,14 @@ public class Automobil implements Comparable{
 
     public void setDodatneKarakteristike(DodatneKarakteristike dodatneKarakteristike) {
         this.dodatneKarakteristike = dodatneKarakteristike;
+    }
+
+    public Set<Fotografija> getFotografija() {
+        return fotografija;
+    }
+
+    public void setFotografija(Set<Fotografija> fotografija) {
+        this.fotografija = fotografija;
     }
 
     @Override

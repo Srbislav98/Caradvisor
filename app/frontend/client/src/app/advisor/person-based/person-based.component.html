@@ -1,16 +1,8 @@
 <div class="d-flex justify-content-center">
-    <div class="w-50" id = "register" >
+    <div  id = "register" >
         <form  [formGroup]="regForm" (ngSubmit)="regIn()">
-            <h2 class="text-center">Dodaj novi automobil</h2>       
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="naziv"><b style="color:white;">Naziv:</b></label>
-                <div class="col-sm-10">
-                <input type="text" class="form-control" id="Naziv"  placeholder="Naziv" formControlName="naziv" value="">
-                <small class="text-danger" 
-                *ngIf="regForm.controls.naziv.touched && regForm.controls.naziv.errors?.required">
-                Ne moze ostati prazno polje</small>
-                </div>
-            </div>
+            <div  class=" p-5" style="float:left;">
+            <h2 class="text-center">CarAdvisor - Automobil</h2>       
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="marka"><b style="color:white;">Marka:</b></label>
                 <div class="col-sm-10">
@@ -21,8 +13,8 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="karoserija"><b style="color:white;">Karoserija:</b></label>
-                <div class="col-sm-10">
+                <label class="col-sm-4 col-form-label" for="karoserija"><b style="color:white;">Karoserija:</b></label>
+                <div class="col-sm-6">
                 <select formControlName="karoserija">
                     <option *ngFor="let symbol of keys1(symbols1)" [ngValue]="symbols1[symbol]">{{symbol}}</option>
                 </select>
@@ -73,8 +65,8 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="kubikaza"><b style="color:white;">Kubikaza:</b></label>
-                <div class="col-sm-10">
+                <label class="col-sm-4 col-form-label" for="kubikaza"><b style="color:white;">Kubikaza:</b></label>
+                <div class="col-sm-8">
                 <input type="number" class="form-control" id="Kubikaza"  placeholder="Kubikaza" formControlName="kubikaza" value="">
                 <small class="text-danger" 
                 *ngIf="regForm.controls.kubikaza.touched && regForm.controls.cena.errors?.kubikaza">
@@ -92,20 +84,67 @@
                 Ne moze ostati prazno polje</small>
                 </div>
             </div>
+        </div>
+        <div class="p-5" style="float:right;">
+            <h2 class="text-center">CarAdvisor - Osoba</h2> 
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="photo"><b style="color:white;">Fotografija:</b> </label>
+                <label class="col-sm-2 col-form-label" for="pol"><b style="color:white;">Pol:</b></label>
                 <div class="col-sm-10">
-                <input type="file"  accept="image/*" class="form-control" id="file-upload"  placeholder="Photo" (change)="handleFileInput($event.target)">
-                
-                <!-- <small class="text-danger" 
-                *ngIf="regForm.controls.location.touched && regForm.controls.location.errors?.required">
-                Location is required</small> -->
+                <select formControlName="pol">
+                    <option *ngFor="let symbol of keys4(symbols4)" [ngValue]="symbols4[symbol]">{{symbol}}</option>
+                </select>
+                <small class="text-danger" 
+                *ngIf="regForm.controls.pol.touched && regForm.controls.pol.errors?.required">
+                Ne moze ostati prazno polje</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="godisteo"><b style="color:white;">Godiste:</b></label>
+                <div class="col-sm-10">
+                <input type="number" class="form-control" id="Godisteo"  placeholder="Godiste osobe" formControlName="godisteo" value="">
+                <small class="text-danger" 
+                *ngIf="regForm.controls.godisteo.touched && regForm.controls.godisteo.errors?.required">
+                Ne moze ostati prazno polje</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="zaposlenost"><b style="color:white;">Zaposlenost:</b></label>
+                <div class="col-sm-10">
+                <select formControlName="zaposlenost">
+                    <option [ngValue]="true">DA</option>
+                    <option [ngValue]="false">NE</option>
+                </select>
+                <small class="text-danger" 
+                *ngIf="regForm.controls.zaposlenost.touched && regForm.controls.zaposlenost.errors?.required">
+                Ne moze ostati prazno polje</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="mestoPrebivalista"><b style="color:white;">Mesto prebivalista:</b></label>
+                <div class="col-sm-10">
+                <select formControlName="mestoPrebivalista">
+                    <option *ngFor="let symbol of keys5(symbols5)" [ngValue]="symbols5[symbol]">{{symbol}}</option>
+                </select>
+                <small class="text-danger" 
+                *ngIf="regForm.controls.mestoPrebivalista.touched && regForm.controls.mestoPrebivalista.errors?.required">
+                Ne moze ostati prazno polje</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="brojClanovaPorodice"><b style="color:white;">Broj clanova porodice</b></label>
+                <div class="col-sm-10">
+                <input type="number" class="form-control" id="BrojClanovaPorodice"  placeholder="Broj clanova porodice" formControlName="brojClanovaPorodice" value="">
+                <small class="text-danger" 
+                *ngIf="regForm.controls.brojClanovaPorodice.touched && regForm.controls.brojClanovaPorodice.errors?.required">
+                Ne moze ostati prazno polje</small>
                 </div>
             </div>
             <div class="form-group row">
                 <a class="btn btn-danger" routerLink="" role="button">Otkazi</a>
                 <button type="submit" id="Ok" class="btn btn-primary" [disabled]="regForm.invalid">Potvrdi</button>
             </div>
+        </div>
         </form>
     </div>
     </div>
+

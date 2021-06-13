@@ -27,7 +27,7 @@ export class CarTableComponent implements OnInit {
   ngOnInit() {}
 
   Obrisi(auto: Car): void {
-    this.carService.deleteCar(auto.id).subscribe(
+    this.carService.deleteCar("s").subscribe(
 			res => {
         this.toastr.success("Succcessful deleted car.");
         //this.router.navigate(['']);

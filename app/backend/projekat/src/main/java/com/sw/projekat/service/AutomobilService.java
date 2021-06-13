@@ -129,4 +129,22 @@ public class AutomobilService {
 //        return automobilRepository.findDistinctByNazivContainingOrOpisContainingOrderByNaziv(pageable, content, content);
         return automobilRepository.findDistinctByMarkaContainingIgnoreCaseOrderByMarka(pageable,content);
     }
+
+    public void createCar(AutomobilDTO autoDTO) {
+        Automobil auto =AutomobilDTOMapper.fromDTO(autoDTO);
+        automobilRepository.save(auto);
+    }
+
+    public Automobil getCar(String naziv) {
+        return automobilRepository.findByNaziv(naziv);
+    }
+
+    public void deleteCar(String naziv) {
+        System.out.println("naziv1");
+        Automobil auto = automobilRepository.findByNaziv(naziv);
+        System.out.println("naziv2");
+        automobilRepository.delete(auto);
+        System.out.println("naziv3");
+        System.out.println(auto.getNaziv());
+    }
 }

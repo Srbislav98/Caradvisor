@@ -1,1 +1,22 @@
-<p>car-details works!</p>
+<div class="w-50 h-100 p-5" style="float:left;">
+    <div>
+        <h2><img src="{{fotografija.lokacijaFajl}}" height="400" width="550"><br/>
+            <b style="color:white;background-color: blue;">{{car.naziv}}</b></h2>
+    </div>
+</div>
+<div class="w-50 h-100 p-5" style="float:left;">
+    <div>
+        <h3 style="background-color: white;"><b>Marka: {{car.marka}}</b></h3>
+        <h3 style="background-color: white;"><b>Karoserija: {{car.karoserija}}</b></h3>
+        <h3 style="background-color: white;"><b>Cena: {{car.cena}}</b></h3>
+        <h3 style="background-color: white;"><b>Godiste: {{car.godiste}}</b></h3>
+        <h3 style="background-color: white;"><b>Gorivo: {{car.gorivo}}</b></h3>
+        <h3 style="background-color: white;"><b>Klima: {{klimica}}</b></h3>
+        <h3 style="background-color: white;"><b>Kubikaza: {{car.kubikaza}}</b></h3>
+        <h3 style="background-color: white;"><b>Boja: {{car.boja}}</b></h3>
+    </div><div>
+        <form (ngSubmit)="Obrisi()"><button type="submit" *ngIf="uloga==='ROLE_ADMIN'" id="deleteBtn" mat-raised-button color="primary">Obrisi</button><br/><br/></form>
+        <form (ngSubmit)="natrag()">
+        <button type="submit" id="backBtn" class="btn btn-secondary">Back</button></form>
+    </div>
+</div>

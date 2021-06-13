@@ -47,6 +47,12 @@ public class AutomobilController {
         List<AutomobilDTO> topCars=automobilService.getYourTopCarsBasedOnYou(autoQuery);
         return new ResponseEntity<List<AutomobilDTO>>(topCars, HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping(value="/create")
+    public ResponseEntity<AutomobilDTO> yourTopCarsBasedOnYou(@RequestBody AutomobilDTO autoDTO){
+        automobilService.createCar(autoDTO);
+        return new ResponseEntity<AutomobilDTO>(autoDTO, HttpStatus.OK);
+    }
 //    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<AutomobilDTO>> getAllCars(Pageable pageable) {
@@ -64,6 +70,25 @@ public class AutomobilController {
         Page<AutomobilDTO> pageautomobilDTOS = new PageImpl<>(automobilDTOS,page.getPageable(),page.getTotalElements());
         return new ResponseEntity<>(pageautomobilDTOS, HttpStatus.OK);
     }
+    @RequestMapping(value = "/getCar/{naziv}", method = RequestMethod.GET)
+    public ResponseEntity<AutomobilDTO> getCar(@PathVariable String naziv ) {
+        Automobil a = automobilService.getCar(naziv);
+        AutomobilDTO dto = AutomobilDTOMapper.toDTO(a);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value="/deleteCar/{naziv}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteCar(@PathVariable String naziv){
+        try {
+            System.out.println("naziv1");
+            automobilService.deleteCar(naziv);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     private List<AutomobilDTO> toAutomobilDTOList(List<Automobil> automobils){
         List<AutomobilDTO> automobilDTOs = new ArrayList<>();
         for (Automobil a : automobils){

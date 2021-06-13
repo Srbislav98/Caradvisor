@@ -2,8 +2,8 @@ import { Boja } from "./boja";
 import { Gorivo } from "./gorivo";
 import { Karoserija } from "./karoserija";
 
-export class Car{
-    naziv:string;
+export class AutomobilQuery{
+    id:number;
     marka:string;
     karoserija:Karoserija;
     cena:number;
@@ -12,9 +12,8 @@ export class Car{
     klima:boolean;
     kubikaza:number;
     boja:Boja;
-    score:number;
-    constructor(naziv:string,marka:string,karoserija:Karoserija,cena:number,godiste:number,gorivo:Gorivo,klima:boolean,kubikaza:number,boja:Boja,score:number){
-        this.naziv=naziv;
+    constructor(id:number,marka:string,karoserija:Karoserija,cena:number,godiste:number,gorivo:Gorivo,klima:boolean,kubikaza:number,boja:Boja){
+        this.id=id;
         this.marka=marka;
         this.karoserija=karoserija;
         this.cena=cena;
@@ -23,6 +22,5 @@ export class Car{
         this.klima=klima;
         this.kubikaza=kubikaza;
         this.boja=boja;
-        this.score=score;
     }
 }

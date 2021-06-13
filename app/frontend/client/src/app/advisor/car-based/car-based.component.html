@@ -1,16 +1,7 @@
 <div class="d-flex justify-content-center">
     <div class="w-50" id = "register" >
         <form  [formGroup]="regForm" (ngSubmit)="regIn()">
-            <h2 class="text-center">Dodaj novi automobil</h2>       
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="naziv"><b style="color:white;">Naziv:</b></label>
-                <div class="col-sm-10">
-                <input type="text" class="form-control" id="Naziv"  placeholder="Naziv" formControlName="naziv" value="">
-                <small class="text-danger" 
-                *ngIf="regForm.controls.naziv.touched && regForm.controls.naziv.errors?.required">
-                Ne moze ostati prazno polje</small>
-                </div>
-            </div>
+            <h2 class="text-center">CarAdvisor - Automobil</h2>       
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="marka"><b style="color:white;">Marka:</b></label>
                 <div class="col-sm-10">
@@ -90,16 +81,6 @@
                 <small class="text-danger" 
                 *ngIf="regForm.controls.boja.touched && regForm.controls.boja.errors?.required">
                 Ne moze ostati prazno polje</small>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="photo"><b style="color:white;">Fotografija:</b> </label>
-                <div class="col-sm-10">
-                <input type="file"  accept="image/*" class="form-control" id="file-upload"  placeholder="Photo" (change)="handleFileInput($event.target)">
-                
-                <!-- <small class="text-danger" 
-                *ngIf="regForm.controls.location.touched && regForm.controls.location.errors?.required">
-                Location is required</small> -->
                 </div>
             </div>
             <div class="form-group row">

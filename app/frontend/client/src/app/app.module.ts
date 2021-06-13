@@ -19,6 +19,11 @@ import { CarTableComponent } from './cars/car-table/car-table.component';
 import { CarDetailsComponent } from './cars/car-details/car-details.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { CarAddComponent } from './cars/car-add/car-add.component';
+import { CarChooseComponent } from './advisor/car-choose/car-choose.component';
+import { PersonBasedComponent } from './advisor/person-based/person-based.component';
+import { CarBasedComponent } from './advisor/car-based/car-based.component';
+import { ResultComponent } from './advisor/result/result.component';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,11 @@ import { CarAddComponent } from './cars/car-add/car-add.component';
     CarTableComponent,
     CarDetailsComponent,
     PaginationComponent,
-    CarAddComponent
+    CarAddComponent,
+    CarChooseComponent,
+    PersonBasedComponent,
+    CarBasedComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +53,7 @@ import { CarAddComponent } from './cars/car-add/car-add.component';
     MatButtonModule,
     MatIconModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

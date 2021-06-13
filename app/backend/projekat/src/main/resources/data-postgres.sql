@@ -8,7 +8,6 @@ INSERT INTO AUTHORITY (name) VALUES ('ROLE_USER');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_ADMIN');
 
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 1);
-INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 1);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 2);
 
 INSERT INTO AUTOMOBIL(naziv,marka,karoserija,cena,godiste,gorivo,klima,kubikaza,boja,score) VALUES ('BMW X6','BMW','LIMUZINA',5000,1998,'BENZIN',true,80,'BELA',0);

@@ -34,7 +34,7 @@ public class AutomobilAndOsobaTest {
 
         AutomobilQuery q2=new AutomobilQuery(1L,"BMW", Karoserija.DZIP,4000,2010,Gorivo.BENZIN,true,100,Boja.CRNA);
         kieSession.setGlobal("q", q2);
-        Automobil automobil=new Automobil(2L,"BMW", Karoserija.KARAVAN,2000,2014,Gorivo.BENZIN,false,54,Boja.PLAVA,0);
+        Automobil automobil=new Automobil("bmw","BMW", Karoserija.KARAVAN,2000,2014,Gorivo.BENZIN,false,54,Boja.PLAVA,0);
         kieSession.insert(automobil);
         kieSession.getAgenda().getAgendaGroup("based_on_car").setFocus();
         kieSession.fireAllRules();
@@ -71,7 +71,7 @@ public class AutomobilAndOsobaTest {
 
         AutomobilQuery q2=new AutomobilQuery(1L,"BMW", Karoserija.DZIP,4000,2010,Gorivo.BENZIN,true,100,Boja.CRNA);
         kieSession.setGlobal("q", q2);
-        Automobil automobil=new Automobil(2L,"BMW", Karoserija.KARAVAN,2000,2014,Gorivo.BENZIN,false,54,Boja.PLAVA,0);
+        Automobil automobil=new Automobil("bmw","BMW", Karoserija.KARAVAN,2000,2014,Gorivo.BENZIN,false,54,Boja.PLAVA,0);
         kieSession.insert(automobil);
         kieSession.getAgenda().getAgendaGroup("based_on_car").setFocus();
         kieSession.fireAllRules();
@@ -108,7 +108,7 @@ public class AutomobilAndOsobaTest {
 
         AutomobilQuery q2=new AutomobilQuery(1L,"BMW", Karoserija.DZIP,4000,2010,Gorivo.BENZIN,true,100,Boja.CRNA);
         kieSession.setGlobal("q", q2);
-        Automobil automobil=new Automobil(2L,"BMW", Karoserija.KARAVAN,2000,2014,Gorivo.BENZIN,false,54,Boja.BRAON,0);
+        Automobil automobil=new Automobil("bmw","BMW", Karoserija.KARAVAN,2000,2014,Gorivo.BENZIN,false,54,Boja.BRAON,0);
         kieSession.insert(automobil);
         kieSession.getAgenda().getAgendaGroup("based_on_car").setFocus();
         kieSession.fireAllRules();
@@ -145,7 +145,7 @@ public class AutomobilAndOsobaTest {
 
         AutomobilQuery q2=new AutomobilQuery(1L,"BMW", Karoserija.DZIP,4000,2010,Gorivo.BENZIN,true,100,Boja.CRVENA);
         kieSession.setGlobal("q", q2);
-        Automobil automobil=new Automobil(2L,"BMW", Karoserija.KARAVAN,2000,2014,Gorivo.BENZIN,false,54,Boja.NARANDZASTA,0);
+        Automobil automobil=new Automobil("bmw","BMW", Karoserija.KARAVAN,2000,2014,Gorivo.BENZIN,false,54,Boja.NARANDZASTA,0);
         kieSession.insert(automobil);
         kieSession.getAgenda().getAgendaGroup("based_on_car").setFocus();
         kieSession.fireAllRules();

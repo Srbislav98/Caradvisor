@@ -16,7 +16,7 @@ rule "Porodicni automobil"
         $osoba:Osoba(getGodiste()==Godiste.SREDNJE_GODINE,getBrojClanovaPorodice()==BrojClanovaPorodice.VISECLANA_PORODICA)
         $automobil:Automobil(getKaroserija()==Karoserija.DZIP|| getKaroserija()==Karoserija.KARAVAN || getKaroserija()==Karoserija.MINIVAN)
     then
-        System.out.println("Porodicni automobil(" + $automobil.getId()+")");
+        System.out.println("Porodicni automobil(" + $automobil.getNaziv()+")");
         modify($automobil){getDodatneKarakteristike().setPorodicni(true)}
         modify($automobil){addToScore(5)}
 end
@@ -30,7 +30,7 @@ rule "Porodicni automobil - dodatno"
         $user:User(isSearched("karavan") ||isSearched("minivan")  || isSearched("dzip") )
     then
         System.out.println("DA LI JE PORODICNI AUTO: "+$automobil.getDodatneKarakteristike().isPorodicni());
-        System.out.println("Porodicni automobil - dodatno(" + $automobil.getId()+")");
+        System.out.println("Porodicni automobil - dodatno(" + $automobil.getNaziv()+")");
         modify($automobil){addToScore(5)}
 end
 rule "Muski automobil"
@@ -41,7 +41,7 @@ rule "Muski automobil"
 //        $automobil:Automobil(getDodatneKarakteristike().isMuskaBoja()==true)
         $automobil:Automobil(getBoja() memberOf new Boja[]{Boja.SIVA,Boja.BRAON,Boja.CRNA})
     then
-        System.out.println("Muski automobil(" + $automobil.getId()+")");
+        System.out.println("Muski automobil(" + $automobil.getNaziv()+")");
         modify($automobil){addToScore(5)}
 end
 rule "Zenski automobil"
@@ -52,7 +52,7 @@ rule "Zenski automobil"
 //        $automobil:Automobil(getDodatneKarakteristike().isZenskaBoja()==true)
         $automobil:Automobil(getBoja() memberOf new Boja[]{Boja.NARANDZASTA,Boja.CRVENA,Boja.LJUBICASTA})
     then
-        System.out.println("Zenski automobil(" + $automobil.getId()+")");
+        System.out.println("Zenski automobil(" + $automobil.getNaziv()+")");
         modify($automobil){addToScore(5)}
 end
 rule "Automobil za posao"
@@ -62,7 +62,7 @@ rule "Automobil za posao"
         $osoba:Osoba(isZaposlenost(),MestoPrebivalista.GRAD!=getMestoPrebivalista())
         $automobil:Automobil(getKaroserija()==Karoserija.DZIP|| getKaroserija()==Karoserija.KARAVAN || getKaroserija()==Karoserija.MINIVAN)
     then
-        System.out.println("Automobil za posao(" + $automobil.getId()+")");
+        System.out.println("Automobil za posao(" + $automobil.getNaziv()+")");
         modify($automobil){addToScore(5)}
 end
 

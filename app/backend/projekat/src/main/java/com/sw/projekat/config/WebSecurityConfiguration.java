@@ -73,6 +73,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/yourTopCars/**").permitAll()
                 .antMatchers("/yourTopCarsBasedOnYou/**").permitAll()
                 .antMatchers("/by-page/**").permitAll()
+                .antMatchers("/getCar/**").permitAll()
+                .antMatchers("/fotografije/getByNaziv/**").permitAll()
                 .antMatchers("/filter-by-content-page/**").permitAll()
                 // za svaki drugi zahtev korisnik mora biti autentifikovan
                 .anyRequest().authenticated().and()
