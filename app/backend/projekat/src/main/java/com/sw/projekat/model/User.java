@@ -5,6 +5,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -45,11 +47,12 @@ public class User implements UserDetails {
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @Column(name = "pretraga")
     @ElementCollection(targetClass=String.class)
     private List<String> pretraga = new ArrayList<String>();
 
-    @OneToMany()
+    @OneToMany(fetch = FetchType.EAGER)
     @Column(name = "detaljna_pretraga")
     private Set<Automobil> detaljna_pretraga = new HashSet<Automobil>();
 
@@ -180,6 +183,15 @@ public class User implements UserDetails {
 
         for(String i:pretraga){
             if (i.toLowerCase().contains(rijec.toLowerCase())){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isDetailedSearched(Automobil automobil){
+
+        for(Automobil a:detaljna_pretraga){
+            if (automobil.getNaziv().equalsIgnoreCase(a.getNaziv())){
                 return true;
             }
         }

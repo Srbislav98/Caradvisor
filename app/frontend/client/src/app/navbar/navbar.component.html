@@ -5,19 +5,19 @@
     <span class="lilspace"></span>
     <span>CarAdvisor</span>
     <div *ngIf="getRole()==='ROLE_ADMIN'">
-      <button mat-raised-button color="accent" id="add-button" (click)="addCar()">Add car</button>
+      <button mat-raised-button color="accent" id="add-button" (click)="addCar()">Dodaj auto</button>
     </div>
     <div *ngIf="getRole()==='ROLE_USER'">
-      <button mat-raised-button color="accent" id="choose-button" (click)="chooseCar()">Choose car</button>
+      <button mat-raised-button color="accent" id="choose-button" (click)="chooseCar()">Izaberi auto</button>
     </div>
     <span class="bigspace"></span>
     <div *ngIf="getRole()===undefined">
-      <button mat-raised-button color="accent" id="signin-button" (click)="goToLogIn()">Login</button>
+      <button mat-raised-button color="accent" id="signin-button" (click)="goToLogIn()">Prijava</button>
       <span class="lilspace"></span>
-      <button mat-raised-button color="accent" id="signup-button" (click)="goToRegistration()">Register</button>
+      <button mat-raised-button color="accent" id="signup-button" (click)="goToRegistration()">Registracija</button>
     </div>
     <div *ngIf="getRole()!==undefined">
-      <button mat-raised-button color="accent" id="signout-button" (click)="logOut()">Log out</button>
+      <button mat-raised-button color="accent" id="signout-button" (click)="logOut()">Odjavi se</button>
     </div>
   
   </mat-toolbar>

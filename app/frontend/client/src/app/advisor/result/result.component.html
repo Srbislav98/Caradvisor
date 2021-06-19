@@ -1,5 +1,5 @@
 <div class="w-100 h-100 p-3">
-	<h1 style="margin: 0 auto;text-align: center;">Najbolji automobili na osnovu unesenih podataka</h1>
+	<h1 style="margin: 0 auto;text-align: center;">Najbolji automobil na osnovu unesenih podataka</h1>
 	<div class="row">
 		<div class="col">
             <table class="table table-striped pera">
@@ -8,13 +8,13 @@
                     <th>Naziv<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
                     <th>Marka <button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
                     <th>Karoserija<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
-                    <th>Score<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
+                    <th>Skor<button class="btn btn-link"><span class="fa fa-sort"></span></button> </th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <div *ngIf="cars?.length === 0 || cars === undefined" style="float:right;">
-                    <h4><b>No cars</b></h4>
+                    <h4><b>Nema automobila</b></h4>
                   </div>
                   <tr *ngFor="let car of cars">
                     <td class="in_waves">{{car.naziv}}</td>
@@ -22,7 +22,7 @@
                     <td>{{car.karoserija}}</td>
                     <td>{{car.score}}</td>
                     <td>
-                      <button mat-raised-button color="primary" id="car_detaljno" routerLink="/car-detaljno/{{car.naziv}}">Detailed</button>
+                      <button mat-raised-button color="primary" id="car_detaljno" routerLink="/car-detaljno/{{car.naziv}}">Detaljno</button>
                     </td>
                   </tr>
                 </tbody>

@@ -68,12 +68,12 @@ export class CarDetailsComponent implements OnInit {
   Obrisi():void{
     this.carService.deleteCar(this.temp).subscribe(
 			res => {
-        this.toastr.success("Succcessful deleted car.");
+        this.toastr.success("Uspešno obrisan autombil.");
         this.router.navigate(['']);
         //this.router.navigate(['kulturne-ponude']);
       },
       error => {
-				this.toastr.error('Unsucccessful deleted car.');
+				this.toastr.error('Neuspešno obrisan automobil. Nemate dozvolu da obrišete ovaj automobil.');
 			}
     );
   }

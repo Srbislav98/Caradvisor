@@ -66,7 +66,7 @@ export class NavbarComponent implements OnInit {
         localStorage.removeItem('user');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('uloga');
-				this.toastr.success('You have been successfully logged out!');
+				this.toastr.success('Uspešno ste se odjavili!');
 				this.router.navigate(['login']);
 		//	},
 		//	error => {

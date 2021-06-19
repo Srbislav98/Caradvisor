@@ -22,7 +22,7 @@ export class CarListComponent implements OnInit {
 		private carService: CarService,
 		private fBuilder: FormBuilder,
 	) {
-		this.pageSize = 2;
+		this.pageSize = 5;
 		this.currentPage = 1;
 		this.totalSize = 1;
 		this.regForm1 = this.fBuilder.group({

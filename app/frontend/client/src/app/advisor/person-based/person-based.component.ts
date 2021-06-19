@@ -92,7 +92,7 @@ export class PersonBasedComponent implements OnInit {
         this.router.navigate(['results']);
       },
       error=>{
-        this.toastr.error("Unsuccessful car choosing.");
+        this.toastr.error("Neuspešan izbor automobila.Proverite unesene podatke.");
       }
     )
   }

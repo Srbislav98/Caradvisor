@@ -60,18 +60,23 @@ export class CarAddComponent implements OnInit {
     this.car.boja=this.regForm.value["boja"];
     this.carService.addCar(this.car).subscribe(
       dataa=>{
-        this.fotoService.createForCar(this.fileToUpload,dataa.naziv).subscribe(
-          data=>{
-            this.toastr.success('Successful car adding.');
+        if(this.fileToUpload!==null && this.car.naziv!==null){
+          this.fotoService.createForCar(this.fileToUpload,this.car.naziv).subscribe(
+            data=>{
+              this.toastr.success('Uspešno dodat automobil.');
+              this.router.navigate(['']);
+            },
+            error=>{
+              this.toastr.error("Neuspešno dodata fotografija. Proverite da li je to stvarno fotografija.");
+            }
+          )
+          }else{
+            this.toastr.success('Uspešno dodat automobil.');
             this.router.navigate(['']);
-          },
-          error=>{
-            this.toastr.error("Unsuccessful photo adding.");
           }
-        )
       },
       error=>{
-        this.toastr.error("Unsuccessful car adding.");
+        this.toastr.error("Neuspešno dodat automobil. Proverite unesene podatke da li su validni (naziv automobila treba biti jedinstven,fotografija mora biti ubačena).");
       }
     )
   }

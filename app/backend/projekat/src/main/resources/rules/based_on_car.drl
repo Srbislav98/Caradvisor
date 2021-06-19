@@ -3,93 +3,118 @@ dialect  "mvel"
 
 import com.sw.projekat.model.AutomobilQuery
 import com.sw.projekat.model.Automobil
+import com.sw.projekat.model.DodatneKarakteristike
 import com.sw.projekat.model.enums.*
 import java.util.ArrayList
 
 global AutomobilQuery q
-global ArrayList<Automobil> topCars;
 
 rule "Tacna marka automobila"
     agenda-group "based_on_car"
+    lock-on-active true
     when
         $automobil:Automobil(getMarka()==q.getMarka())
     then
         System.out.println("Tacna marka automobila(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(20)}
+        $automobil.addToScore(20);
+        update($automobil);
 end
 rule "Tacna karoserija automobila"
     agenda-group "based_on_car"
+    lock-on-active true
     when
         $automobil:Automobil(getKaroserija()==q.getKaroserija())
     then
         System.out.println("Tacna karoserija automobila(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(20)}
+        $automobil.addToScore(20);
+        update($automobil);
 end
-rule "Slicna karoserija automobila - dzipovi "
+rule "Karoserija automobila - dzipovi "
     agenda-group "based_on_car"
+    lock-on-active true
     when
-        $automobil:Automobil((getKaroserija()!=q.getKaroserija()),
-        (getKaroserija()==Karoserija.DZIP || getKaroserija()==Karoserija.PICKUP))
+        $automobil:Automobil
+        ((q.getKaroserija() memberOf new Karoserija[]{Karoserija.DZIP,Karoserija.PICKUP}),
+        (getKaroserija() memberOf new Karoserija[]{Karoserija.DZIP,Karoserija.PICKUP}))
     then
-        System.out.println("Slicna karoserija automobila - dzipovi(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(10)}
+        System.out.println("Karoserija automobila - dzipovi(" + $automobil.getNaziv()+")");
+        $automobil.getDodatneKarakteristike().setKaroserijaDzipovi(true);
+        update($automobil);
 end
-rule "Slicna karoserija automobila - porodicni "
+rule "Karoserija automobila - porodicni "
     agenda-group "based_on_car"
+    lock-on-active true
     when
-        $automobil:Automobil((getKaroserija()!=q.getKaroserija()),
-        (getKaroserija()==Karoserija.LIMUZINA || getKaroserija()==Karoserija.HECBEK || getKaroserija()==Karoserija.KARAVAN || getKaroserija()==Karoserija.MINIVAN))
+        $automobil:Automobil
+        ((q.getKaroserija() memberOf new Karoserija[]{Karoserija.LIMUZINA,Karoserija.HECBEK,Karoserija.KARAVAN,Karoserija.MINIVAN}),
+        (getKaroserija() memberOf new Karoserija[]{Karoserija.LIMUZINA,Karoserija.HECBEK,Karoserija.KARAVAN,Karoserija.MINIVAN}))
     then
-        System.out.println("Slicna karoserija automobila - porodicni(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(10)}
+        System.out.println("Karoserija automobila - porodicni(" + $automobil.getNaziv()+")");
+        //System.out.println($automobil.getKaroserija()+"***" +q.getKaroserija());
+        $automobil.getDodatneKarakteristike().setKaroserijaPorodicni(true);
+        update($automobil);
 end
-rule "Slicna karoserija automobila - sportski/ljetni "
+rule "Karoserija automobila - sportski/ljetni "
     agenda-group "based_on_car"
+    lock-on-active true
     when
-        $automobil:Automobil((getKaroserija()!=q.getKaroserija()),
-        (getKaroserija()==Karoserija.KABRIOLET || getKaroserija()==Karoserija.KUPE))
+        $automobil:Automobil
+        ((q.getKaroserija() memberOf new Karoserija[]{Karoserija.KABRIOLET,Karoserija.KUPE}),
+        (getKaroserija() memberOf new Karoserija[]{Karoserija.KABRIOLET,Karoserija.KUPE}))
     then
-        System.out.println("Slicna karoserija automobila - sportski/ljetni(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(10)}
+        System.out.println("Karoserija automobila - sportski/ljetni(" + $automobil.getNaziv()+")");
+        $automobil.getDodatneKarakteristike().setKaroserijaSportskiLjetni(true);
+        update($automobil);
 end
 rule "Cena je do 50% manja od unesene okvirne cene "
     agenda-group "based_on_car"
+    lock-on-active true
     when
         $automobil:Automobil((getCena()<=q.getCena()),
         (getCena()>=q.getCena()*0.5))
     then
         System.out.println("Cena je do 50% manja od unesene okvirne cene(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(20)}
+        $automobil.addToScore(20);
+        $automobil.getDodatneKarakteristike().setJeftin(true);
+        update($automobil);
 end
 rule "Cena je do 10% veca od unesene okvirne cene "
     agenda-group "based_on_car"
+    lock-on-active true
     when
         $automobil:Automobil((getCena()>q.getCena()),
         (getCena()<=q.getCena()*1.1))
     then
         System.out.println("Cena je do 10% veca od unesene okvirne cene(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(10)}
+        $automobil.addToScore(10);
+        update($automobil);
 end
 rule "Cena je do 50% veca od unesene okvirne cene "
     agenda-group "based_on_car"
+    lock-on-active true
     when
         $automobil:Automobil((getCena()>q.getCena()*1.1),
         (getCena()<=q.getCena()*1.5))
     then
         System.out.println("Cena je do 50% veca od unesene okvirne cene(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(5)}
+        $automobil.addToScore(5);
+        update($automobil);
 end
 rule "Godište automobila je u rangu ± 5 "
     agenda-group "based_on_car"
+    lock-on-active true
     when
         $automobil:Automobil((getGodiste()>=q.getGodiste()-5),
         (getGodiste()<=q.getGodiste()+5))
     then
         System.out.println("Godište automobila je u rangu ± 5 (" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(20)};
+        //$automobil.getDodatneKarakteristike().setNovi(true);
+        $automobil.addToScore(20);
+        update($automobil);
 end
 rule "Godište automobila je u rangu ± 10 "
     agenda-group "based_on_car"
+    lock-on-active true
     when
         $automobil:Automobil(((getGodiste()>=q.getGodiste()-10) &&
          (getGodiste()<q.getGodiste()-5)) ||
@@ -97,53 +122,68 @@ rule "Godište automobila je u rangu ± 10 "
         (getGodiste()>q.getGodiste()+5)))
     then
         System.out.println("Godište automobila je u rangu ± 10 (" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(10)}
+        $automobil.addToScore(10);
+        update($automobil);
 end
 rule "Tacno gorivo automobila"
     agenda-group "based_on_car"
+    lock-on-active true
     when
         $automobil:Automobil(getGorivo()==q.getGorivo())
     then
         System.out.println("Tacno gorivo automobila(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(10)}
+        $automobil.addToScore(10);
+        update($automobil);
 end
 rule "Slicna grupa goriva automobila - benzinac "
     agenda-group "based_on_car"
+    lock-on-active true
     when
         $automobil:Automobil((getGorivo()!=q.getGorivo()),
-        (getGorivo()==Gorivo.BENZIN_GAS || getGorivo()==Gorivo.BENZIN || getGorivo()==Gorivo.BENZIN_METAN))
+        (q.getGorivo() memberOf new Gorivo[]{Gorivo.BENZIN_METAN,Gorivo.BENZIN,Gorivo.BENZIN_GAS}),
+        (getGorivo() memberOf new Gorivo[]{Gorivo.BENZIN_METAN,Gorivo.BENZIN,Gorivo.BENZIN_GAS}))
     then
         System.out.println("Slicna grupa goriva automobila - benzinac(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(5)}
+        $automobil.addToScore(5);
+        update($automobil);
 end
-rule "Slicna grupa goriva automobila - ekoloski "
+rule "Grupa goriva automobila - ekoloski "
     agenda-group "based_on_car"
+    lock-on-active true
     when
-        $automobil:Automobil((getGorivo()!=q.getGorivo()),
-        (getGorivo()==Gorivo.ELEKTRICNI_POGON || getGorivo()==Gorivo.HIBRIDNI_POGON))
+        $automobil:Automobil
+        ((q.getGorivo() memberOf new Gorivo[]{Gorivo.HIBRIDNI_POGON,Gorivo.ELEKTRICNI_POGON}),
+        (getGorivo() memberOf new Gorivo[]{Gorivo.HIBRIDNI_POGON,Gorivo.ELEKTRICNI_POGON}))
     then
-        System.out.println("Slicna grupa goriva automobila - ekoloski(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(5)}
+        System.out.println("Grupa goriva automobila - ekoloski(" + $automobil.getNaziv()+")");
+        $automobil.getDodatneKarakteristike().setEkoloski(true);
+        $automobil.addToScore(5);
+        update($automobil);
 end
 rule "Klima u automobilu"
     agenda-group "based_on_car"
+    lock-on-active true
     when
         $automobil:Automobil(isKlima()==true,q.isKlima()==true)
     then
         System.out.println("Klima u automobilu(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(5)}
+        $automobil.addToScore(5);
+        update($automobil);
 end
 rule "Kubikaza automobila je u rangu ± 10 "
     agenda-group "based_on_car"
+    lock-on-active true
     when
         $automobil:Automobil((getKubikaza()>=q.getKubikaza()-10),
         (getKubikaza()<=q.getKubikaza()+10))
     then
         System.out.println("Kubikaza automobila je u rangu ± 10 (" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(20)}
+        $automobil.addToScore(20);
+        update($automobil);
 end
 rule "Kubikaza automobila je u rangu ± 20 "
     agenda-group "based_on_car"
+    lock-on-active true
     when
         $automobil:Automobil(((getKubikaza()>=q.getKubikaza()-20) &&
         (getKubikaza()<q.getKubikaza()-10)) ||
@@ -151,10 +191,12 @@ rule "Kubikaza automobila je u rangu ± 20 "
         (getKubikaza()>q.getKubikaza()+10)))
     then
         System.out.println("Kubikaza automobila je u rangu ± 20 (" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(10)}
+        $automobil.addToScore(10);
+        update($automobil);
 end
 rule "Kubikaza automobila je u rangu ± 40 "
     agenda-group "based_on_car"
+    lock-on-active true
     when
         $automobil:Automobil(((getKubikaza()>=q.getKubikaza()-40) &&
         (getKubikaza()<q.getKubikaza()-20)) ||
@@ -162,35 +204,40 @@ rule "Kubikaza automobila je u rangu ± 40 "
         (getKubikaza()>q.getKubikaza()+20)))
     then
         System.out.println("Kubikaza automobila je u rangu ± 40 (" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(5)}
+        $automobil.addToScore(5);
+        update($automobil);
 end
 rule "Tacna boja automobila"
     agenda-group "based_on_car"
+    lock-on-active true
     when
         $automobil:Automobil(q.getBoja() == getBoja())
     then
         System.out.println("Tacna boja automobila(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(10)}
+        $automobil.addToScore(10);
+        update($automobil);
 end
-rule "Slicna grupa boje automobila - zenska "
+rule "Grupa boje automobila - zenska "
     agenda-group "based_on_car"
+    lock-on-active true
     when
-        $automobil:Automobil((getBoja()!=q.getBoja()),
-        (getBoja()==Boja.NARANDZASTA  || getBoja()==Boja.CRVENA
-         || getBoja()==Boja.LJUBICASTA))
+        $automobil:Automobil
+        ((q.getBoja() memberOf new Boja[]{Boja.CRVENA,Boja.NARANDZASTA,Boja.LJUBICASTA}),
+        (getBoja() memberOf new Boja[]{Boja.CRVENA,Boja.NARANDZASTA,Boja.LJUBICASTA}))
     then
-        System.out.println("Slicna grupa boje automobila - zenska(" + $automobil.getNaziv()+")");
-//        modify($automobil){getDodatneKarakteristike().setZenskaBoja(true)}
-        modify($automobil){addToScore(5)}
+        System.out.println("Grupa boje automobila - zenska(" + $automobil.getNaziv()+")");
+        $automobil.getDodatneKarakteristike().setZenskaBoja(true);
+        update($automobil);
 end
-rule "Slicna grupa boje automobila - muska "
+rule "Grupa boje automobila - muska "
     agenda-group "based_on_car"
+    lock-on-active true
     when
-        $automobil:Automobil((getBoja()!=q.getBoja()),
-        (getBoja()==Boja.CRNA || getBoja()==Boja.BRAON
-         || getBoja()==Boja.SIVA))
+        $automobil:Automobil
+        ((q.getBoja() memberOf new Boja[]{Boja.CRNA,Boja.BRAON,Boja.SIVA}),
+        (getBoja() memberOf new Boja[]{Boja.CRNA,Boja.BRAON,Boja.SIVA}))
     then
-        System.out.println("Slicna grupa boje automobila - muska(" + $automobil.getNaziv()+")");
-//        modify($automobil){getDodatneKarakteristike().setMuskaBoja(true)}
-        modify($automobil){addToScore(5)}
+        System.out.println("Grupa boje automobila - muska(" + $automobil.getNaziv()+")");
+        $automobil.getDodatneKarakteristike().setMuskaBoja(true);
+        update($automobil);
 end

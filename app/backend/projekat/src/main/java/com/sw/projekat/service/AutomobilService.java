@@ -2,12 +2,18 @@ package com.sw.projekat.service;
 
 import com.sw.projekat.dto.AutomobilDTO;
 import com.sw.projekat.dto.AutomobilQueryDTO;
+import com.sw.projekat.dto.OsobaQueryDTO;
 import com.sw.projekat.dto.QueryDTO;
 import com.sw.projekat.mapper.AutomobilDTOMapper;
 import com.sw.projekat.mapper.AutomobilQueryDTOMapper;
 import com.sw.projekat.mapper.OsobaDTOMapper;
 import com.sw.projekat.model.*;
+import com.sw.projekat.model.enums.BrojClanovaPorodice;
+import com.sw.projekat.model.enums.Godiste;
+import com.sw.projekat.model.enums.MestoPrebivalista;
+import com.sw.projekat.model.enums.Pol;
 import com.sw.projekat.repository.AutomobilRepository;
+import com.sw.projekat.repository.UserRepository;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -34,29 +41,30 @@ public class AutomobilService {
     @Autowired
     AutomobilRepository automobilRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     public List<AutomobilDTO> getYourTopCars(AutomobilQueryDTO autoQuery) {
         KieSession kieSession=kieService.getRulesSession();
-        Query q=new Query();
-        q.setAutomobilQuery(AutomobilQueryDTOMapper.fromDTO(autoQuery));
-        kieSession.setGlobal("q", q.getAutomobilQuery());
+        kieSession.setGlobal("q", AutomobilQueryDTOMapper.fromDTO(autoQuery));
+
         List<Automobil> automobils=autoService.findAll();
         for (Automobil a : automobils) {
             a.setScore(0);
+            a.setDodatneKarakteristike(new DodatneKarakteristike());
             kieSession.insert(a);
         }
         List<Automobil> topCars=new ArrayList<>();
-        //kieSession.setGlobal("topCars",topCars);
         kieSession.getAgenda().getAgendaGroup("based_on_car").setFocus();
         kieSession.fireAllRules();
-        //topCars= (List<Automobil>) kieSession.getGlobal("topCars");
+
         kieService.disposeRulesSession();
 
-        //System.out.println(automobils.size());
+
         Collections.sort(automobils,Collections.reverseOrder());
-        //System.out.println(automobils.size());
         for (Automobil a :automobils) {
             topCars.add(a);
-            if(topCars.size()==2){
+            if(topCars.size()==1){
                 break;
             }
         }
@@ -78,39 +86,46 @@ public class AutomobilService {
         Osoba osoba= new Osoba(autoQuery.getOsobaQuery().getPol(),null,autoQuery.getOsobaQuery().isZaposlenost(),
                 autoQuery.getOsobaQuery().getMestoPrebivalista(),null);
         kieSession.insert(osoba);
+
         List<Automobil> automobils=autoService.findAll();
         for (Automobil a : automobils) {
             a.setScore(0);
+            a.setDodatneKarakteristike(new DodatneKarakteristike());
             kieSession.insert(a);
         }
         List<Automobil> topCars=new ArrayList<>();
+
         kieSession.getAgenda().getAgendaGroup("based_on_person").setFocus();
         kieSession.fireAllRules();
         kieSession.getAgenda().getAgendaGroup("based_on_car").setFocus();
         kieSession.fireAllRules();
 
         //ovako treba, ali radi testiranja cu drugacije, a kasnije ovako
-//        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
-//        User u=(User)auth.getPrincipal();
-
+        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+        User user=(User)auth.getPrincipal();
         //ovako ne treba
-        User user=new User();
-        ArrayList<String> lista=new ArrayList<String>();
-        lista.add("bmw najnoviji");
-        lista.add("dzip najbolji");
-        user.setPretraga(lista);
+//        User user=new User();
+//        ArrayList<String> lista=new ArrayList<String>();
+//        lista.add("bmw najnoviji");
+//        lista.add("dzip najbolji");
+//        user.setPretraga(lista);
+//        HashSet<Automobil> auta=new HashSet<Automobil>();
+//        auta.add(automobilRepository.findByNaziv("Renault megane"));
+//        user.setDetaljna_pretraga(auta);
         kieSession.insert(user);
+
         kieSession.getAgenda().getAgendaGroup("based_on_car_and_person").setFocus();
+        kieSession.fireAllRules();
+        kieSession.getAgenda().getAgendaGroup("based_on_all_dodatno").setFocus();
         kieSession.fireAllRules();
 
         kieService.disposeRulesSession();
-
 
         //sortiranje automobila, vracanje najboljih
         Collections.sort(automobils,Collections.reverseOrder());
         for (Automobil a :automobils) {
             topCars.add(a);
-            if(topCars.size()==2){
+            if(topCars.size()==1){
                 break;
             }
         }
@@ -126,8 +141,18 @@ public class AutomobilService {
     }
 
     public Page<Automobil> filterByContentPage(Pageable pageable, String content) {
+        try {
+            Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+            User u=(User)auth.getPrincipal();
+            if(u.getId()!=1){
+                u.getPretraga().add(content);
+                userRepository.save(u);
+            }
+        }catch (Exception e){
+            System.out.println("Nema reg korisnika");
+        }
 //        return automobilRepository.findDistinctByNazivContainingOrOpisContainingOrderByNaziv(pageable, content, content);
-        return automobilRepository.findDistinctByMarkaContainingIgnoreCaseOrderByMarka(pageable,content);
+        return automobilRepository.findDistinctByNazivContainingIgnoreCaseOrMarkaContainingIgnoreCaseOrderByNaziv(pageable,content,content);
     }
 
     public void createCar(AutomobilDTO autoDTO) {
@@ -136,7 +161,18 @@ public class AutomobilService {
     }
 
     public Automobil getCar(String naziv) {
-        return automobilRepository.findByNaziv(naziv);
+        Automobil autic= automobilRepository.findByNaziv(naziv);
+        try {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            User u = (User) auth.getPrincipal();
+            if(u.getId()!=1){
+                u.getDetaljna_pretraga().add(autic);
+                userRepository.save(u);
+            }
+        }catch (Exception e){
+            System.out.println("Nema reg korisnika");
+        }
+        return autic;
     }
 
     public void deleteCar(String naziv) {

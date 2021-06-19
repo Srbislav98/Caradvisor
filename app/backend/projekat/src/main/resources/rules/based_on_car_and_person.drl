@@ -9,60 +9,92 @@ import com.sw.projekat.model.enums.*
 import com.sw.projekat.model.DodatneKarakteristike
 import java.util.ArrayList
 
+global AutomobilQuery q
+
 rule "Porodicni automobil"
     agenda-group "based_on_car_and_person"
     salience 20
+    lock-on-active true
     when
         $osoba:Osoba(getGodiste()==Godiste.SREDNJE_GODINE,getBrojClanovaPorodice()==BrojClanovaPorodice.VISECLANA_PORODICA)
-        $automobil:Automobil(getKaroserija()==Karoserija.DZIP|| getKaroserija()==Karoserija.KARAVAN || getKaroserija()==Karoserija.MINIVAN)
+        $automobil:Automobil(getDodatneKarakteristike().isKaroserijaPorodicni()==true)
     then
         System.out.println("Porodicni automobil(" + $automobil.getNaziv()+")");
-        modify($automobil){getDodatneKarakteristike().setPorodicni(true)}
-        modify($automobil){addToScore(5)}
-end
-rule "Porodicni automobil - dodatno"
-    agenda-group "based_on_car_and_person"
-    salience 10
-    when
-//        $automobil:Automobil(getDodatneKarakteristike().isPorodicni()==false)
-        $osoba:Osoba(getGodiste()==Godiste.SREDNJE_GODINE,getBrojClanovaPorodice()==BrojClanovaPorodice.VISECLANA_PORODICA)
-        $automobil:Automobil(getKaroserija()==Karoserija.DZIP|| getKaroserija()==Karoserija.KARAVAN || getKaroserija()==Karoserija.MINIVAN)
-        $user:User(isSearched("karavan") ||isSearched("minivan")  || isSearched("dzip") )
-    then
-        System.out.println("DA LI JE PORODICNI AUTO: "+$automobil.getDodatneKarakteristike().isPorodicni());
-        System.out.println("Porodicni automobil - dodatno(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(5)}
+        $automobil.getDodatneKarakteristike().setPorodicni(true);
+        $automobil.addToScore(5);
+        update($automobil);
 end
 rule "Muski automobil"
     agenda-group "based_on_car_and_person"
-    salience 20
+    salience 17
+    lock-on-active true
     when
         $osoba:Osoba(getPol()==Pol.M)
-//        $automobil:Automobil(getDodatneKarakteristike().isMuskaBoja()==true)
-        $automobil:Automobil(getBoja() memberOf new Boja[]{Boja.SIVA,Boja.BRAON,Boja.CRNA})
+        $automobil:Automobil(getDodatneKarakteristike().isMuskaBoja()==true)
     then
         System.out.println("Muski automobil(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(5)}
+        $automobil.addToScore(5);
+        update($automobil);
 end
 rule "Zenski automobil"
     agenda-group "based_on_car_and_person"
-    salience 20
+    salience 18
+    lock-on-active true
     when
         $osoba:Osoba(getPol()==Pol.Z)
-//        $automobil:Automobil(getDodatneKarakteristike().isZenskaBoja()==true)
-        $automobil:Automobil(getBoja() memberOf new Boja[]{Boja.NARANDZASTA,Boja.CRVENA,Boja.LJUBICASTA})
+        $automobil:Automobil(getDodatneKarakteristike().isZenskaBoja()==true)
     then
         System.out.println("Zenski automobil(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(5)}
+        $automobil.addToScore(5);
+        update($automobil);
 end
 rule "Automobil za posao"
     agenda-group "based_on_car_and_person"
-    salience 20
+    salience 19
+    lock-on-active true
     when
         $osoba:Osoba(isZaposlenost(),MestoPrebivalista.GRAD!=getMestoPrebivalista())
-        $automobil:Automobil(getKaroserija()==Karoserija.DZIP|| getKaroserija()==Karoserija.KARAVAN || getKaroserija()==Karoserija.MINIVAN)
+        $automobil:Automobil(getDodatneKarakteristike().isKaroserijaPorodicni()==true ||
+        getDodatneKarakteristike().isKaroserijaDzipovi()==true)
     then
         System.out.println("Automobil za posao(" + $automobil.getNaziv()+")");
-        modify($automobil){addToScore(5)}
+        $automobil.addToScore(5);
+        update($automobil);
 end
-
+rule "Momacki auto"
+    agenda-group "based_on_car_and_person"
+    salience 19
+    lock-on-active true
+    when
+        $osoba:Osoba(Pol.M==getPol(),getGodiste()==Godiste.MLADA_OSOBA)
+        $automobil:Automobil(getDodatneKarakteristike().isKaroserijaSportskiLjetni()==true)
+    then
+        System.out.println("Momacki auto(" + $automobil.getNaziv()+")");
+        $automobil.getDodatneKarakteristike().setMomacki(true);
+        $automobil.addToScore(5);
+        update($automobil);
+end
+rule "Automobil za nezaposlene"
+    agenda-group "based_on_car_and_person"
+    salience 19
+    lock-on-active true
+    when
+        $osoba:Osoba(isZaposlenost()==false)
+        $automobil:Automobil(getDodatneKarakteristike().isJeftin()==true)
+    then
+        System.out.println("Automobil za nezaposlene(" + $automobil.getNaziv()+")");
+        $automobil.addToScore(5);
+        update($automobil);
+end
+rule "Eko auto"
+    agenda-group "based_on_car_and_person"
+    salience 19
+    lock-on-active true
+    when
+        $osoba:Osoba(MestoPrebivalista.GRAD==getMestoPrebivalista())
+        $automobil:Automobil(getDodatneKarakteristike().isEkoloski()==true)
+    then
+        System.out.println("Eko auto(" + $automobil.getNaziv()+")");
+        $automobil.addToScore(5);
+        update($automobil);
+end

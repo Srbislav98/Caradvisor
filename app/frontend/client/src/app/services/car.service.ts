@@ -40,7 +40,7 @@ export class CarService {
 		return this.http.post('http://localhost:8080/yourTopCarsBasedOnYou',sub);
 	}
 	public getByPage(page:number): Observable<any>{
-        return this.http.get("http://localhost:8080/by-page?page="+page+"&size=2", {headers:this.headers})
+        return this.http.get("http://localhost:8080/by-page?page="+page+"&size=5", {headers:this.headers})
 	}
 	public get(naziv:any):Observable<Car>{
         return this.http.get<Car>("http://localhost:8080/getCar/"+`${naziv}` , {headers:this.headers});

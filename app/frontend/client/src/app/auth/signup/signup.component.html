@@ -1,6 +1,6 @@
 <div id = "register">
     <form [formGroup]="regForm" (ngSubmit)="regIn()" style="border-radius: 5px;">
-		<h2 class="text-center">Registration</h2>   
+		<h2 class="text-center">Registracija</h2>   
         <!--
 		<div class="form-group">
 			<label for="email">Email: </label>
@@ -13,42 +13,42 @@
 				Email is not valid</small>
         </div>-->
         <div class="form-group">
-			<label for="username">Username: </label>
-            <input type="text" class="form-control" id="username"  placeholder="username" formControlName="username">
+			<label for="username">Korisničko ime: </label>
+            <input type="text" class="form-control" id="username"  placeholder="korisničko ime" formControlName="username">
 			<small class="text-danger" 
 				*ngIf="regForm.controls.username.touched && regForm.controls.username.errors?.required">
-				Username is required</small>
+				Korisničko ime je obavezno</small>
 		</div>
 		<div class="form-group" id = "vrsta">
 			<div class = "celija">
-				<label for="ime">Name: </label>
-                <input type="text" class="form-control" id="Name"  placeholder="Name" formControlName="ime">
+				<label for="ime">Ime: </label>
+                <input type="text" class="form-control" id="Name"  placeholder="ime" formControlName="ime">
                 <small class="text-danger" 
                     *ngIf="regForm.controls.ime.touched && regForm.controls.ime.errors?.required">
-                    Name is required</small>
+                    Ime je obavezno</small>
    			</div>
    			<div class = "celija">
-   				<label for="prezime">Surname: </label>
-                   <input type="text" class="form-control" id="Surname"  placeholder="Surname" formControlName="prezime">
+   				<label for="prezime">Prezime: </label>
+                   <input type="text" class="form-control" id="Surname"  placeholder="prezime" formControlName="prezime">
                    <small class="text-danger" 
                        *ngIf="regForm.controls.prezime.touched && regForm.controls.prezime.errors?.required">
-                       Surname is required</small>
+                       Prezime je obavezno</small>
     		</div>
         </div>
         <div class="form-group">
-			<label for="password">Password: </label>
-            <input type="password" class="form-control" id="password" placeholder="password" formControlName="password">
+			<label for="password">Lozinka: </label>
+            <input type="password" class="form-control" id="password" placeholder="lozinka" formControlName="password">
 			<small class="text-danger" 
 				*ngIf="regForm.controls.password.touched && regForm.controls.password.errors?.required">
-				Password is required</small>
+				Lozinka je obavezna</small>
 			<small class="text-danger" 
 				*ngIf="regForm.controls.password.touched && regForm.controls.password.errors?.minlength">
-				Password should be at least 6 characters long</small>
+				Lozinka treba sadržati najmanje 6 karaktera</small>
 		</div>
         <div class="form-group">
-    		<button type="submit" id="register-button" class="btn btn-primary btn-block" [disabled]="regForm.invalid">Sign up</button>
+    		<button type="submit" id="register-button" class="btn btn-primary btn-block" [disabled]="regForm.invalid">Registruj se</button>
         </div>
-        <a routerLink="/login" id="registration-link" class="btn btn-link">Sign in instead</a>
+        <a routerLink="/login" id="registration-link" class="btn btn-link">Ipak se prijavi.</a>
 		
     </form>
 </div>

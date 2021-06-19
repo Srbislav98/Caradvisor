@@ -39,12 +39,12 @@ export class SignupComponent implements OnInit {
       this.user.password=this.regForm.value["password"];
       this.authService.registerUser(this.user).subscribe(
         data=>{
-          this.toastr.success('Successful registration. You can now log in.');
+          this.toastr.success('Uspešna registracija. Sada se možete prijaviti.');
           this.regForm.reset();
           this.router.navigate(['/login']);
         },
         error=>{
-          this.toastr.error("Unsuccessful registration. Email/Username is already in use.");
+          this.toastr.error("Neuspešna registracija. Korisničko ime je već u potrebi.");
         }
       )
     }

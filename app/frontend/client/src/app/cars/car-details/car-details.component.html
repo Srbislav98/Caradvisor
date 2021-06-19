@@ -1,22 +1,53 @@
 <div class="w-50 h-100 p-5" style="float:left;">
-    <div>
+    <!-- <div>
         <h2><img src="{{fotografija.lokacijaFajl}}" height="400" width="550"><br/>
             <b style="color:white;background-color: blue;">{{car.naziv}}</b></h2>
+    </div> -->
+    <div class="polaroid">
+        <img src="{{fotografija.lokacijaFajl}}" alt="5 Terre" style="width:100%">
+        <div class="container">
+            <p>{{car.naziv}}</p>
+        </div>
     </div>
 </div>
 <div class="w-50 h-100 p-5" style="float:left;">
+    <table id="customers">
+        <tr>
+          <td>Marka</td>
+          <td>{{car.marka}}</td>
+        </tr>
+        <tr>
+            <td>Karoserija</td>
+            <td>{{car.karoserija}}</td>
+        </tr>
+        <tr>
+            <td>Cena (evro)</td>
+            <td>{{car.cena}}</td>
+        </tr>
+        <tr>
+            <td>Godište</td>
+            <td>{{car.godiste}}</td>
+        </tr>
+        <tr>
+            <td>Gorivo</td>
+            <td>{{car.gorivo}}</td>
+        </tr>
+        <tr>
+            <td>Klima</td>
+            <td>{{klimica}}</td>
+        </tr>
+        <tr>
+            <td>Kubikaža (KS)</td>
+            <td>{{car.kubikaza}}</td>
+        </tr>
+        <tr>
+            <td>Boja</td>
+            <td>{{car.boja}}</td>
+        </tr>
+    </table>
     <div>
-        <h3 style="background-color: white;"><b>Marka: {{car.marka}}</b></h3>
-        <h3 style="background-color: white;"><b>Karoserija: {{car.karoserija}}</b></h3>
-        <h3 style="background-color: white;"><b>Cena: {{car.cena}}</b></h3>
-        <h3 style="background-color: white;"><b>Godiste: {{car.godiste}}</b></h3>
-        <h3 style="background-color: white;"><b>Gorivo: {{car.gorivo}}</b></h3>
-        <h3 style="background-color: white;"><b>Klima: {{klimica}}</b></h3>
-        <h3 style="background-color: white;"><b>Kubikaza: {{car.kubikaza}}</b></h3>
-        <h3 style="background-color: white;"><b>Boja: {{car.boja}}</b></h3>
-    </div><div>
-        <form (ngSubmit)="Obrisi()"><button type="submit" *ngIf="uloga==='ROLE_ADMIN'" id="deleteBtn" mat-raised-button color="primary">Obrisi</button><br/><br/></form>
+        <form (ngSubmit)="Obrisi()"><button type="submit" *ngIf="uloga==='ROLE_ADMIN'" id="deleteBtn" mat-raised-button color="primary">Obriši</button><br/><br/></form>
         <form (ngSubmit)="natrag()">
-        <button type="submit" id="backBtn" class="btn btn-secondary">Back</button></form>
+        <button type="submit" id="backBtn" class="btn btn-secondary">Natrag</button></form>
     </div>
 </div>

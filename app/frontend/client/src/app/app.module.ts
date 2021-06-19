@@ -24,6 +24,7 @@ import { PersonBasedComponent } from './advisor/person-based/person-based.compon
 import { CarBasedComponent } from './advisor/car-based/car-based.component';
 import { ResultComponent } from './advisor/result/result.component';
 import { DataService } from './services/data.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { DataService } from './services/data.service';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,

@@ -29,12 +29,12 @@ export class CarTableComponent implements OnInit {
   Obrisi(auto: Car): void {
     this.carService.deleteCar("s").subscribe(
 			res => {
-        this.toastr.success("Succcessful deleted car.");
+        this.toastr.success("Uspešno obrisan autombil.");
         //this.router.navigate(['']);
         this.router.navigate(['cars']);
       },
       error => {
-				this.toastr.error('Unsucccessful deleted car.');
+				this.toastr.error('Neuspešno obrisan automobil. Nemate dozvolu da obrišete ovaj automobil.');
 			}
     );
   }

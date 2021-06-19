@@ -2,10 +2,10 @@
 	<h1 style="margin: 0 auto;text-align: center;">CarAdvisor</h1>
 	<form [formGroup]="regForm1" (ngSubmit)="regIn()" class="form-inline">
 		<div class="form-group mx-sm-0 mb-2">
-		  <input type="text" class="form-control" id="podatak" formControlName="podatak" placeholder="search by content...">
+		  <input type="text" class="form-control" id="podatak" formControlName="podatak" placeholder="pretraži po nazivu...">
 		</div>
-    <button type="submit" class="btn btn-secondary mb-2" id="filter_content">Search</button>
-	<button class="btn btn-primary mb-2"  id="reset-button" (click)="ngOnInit()">Reset</button>
+    <button type="submit" class="btn btn-secondary mb-2" id="filter_content">Pretraži</button>
+	<button class="btn btn-primary mb-2"  id="reset-button" (click)="ngOnInit()">Resetuj</button>
 	</form>
 	<div class="row">
 		<div class="col">

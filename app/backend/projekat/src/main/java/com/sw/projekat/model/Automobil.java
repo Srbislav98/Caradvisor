@@ -57,6 +57,7 @@ public class Automobil implements Comparable{
     private DodatneKarakteristike dodatneKarakteristike = new DodatneKarakteristike();
 
     public Automobil() {
+        this.dodatneKarakteristike = new DodatneKarakteristike();
     }
 
     public Automobil(String id, String marka, Karoserija karoserija, int cena, int godiste, Gorivo gorivo, boolean klima, int kubikaza, Boja boja, Set<Review> reviews, Double averagereview, int score) {

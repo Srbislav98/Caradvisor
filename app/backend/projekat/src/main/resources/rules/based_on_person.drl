@@ -9,49 +9,61 @@ global OsobaQueryDTO qOsoba
 
 rule "Osoba je samac"
     agenda-group "based_on_person"
+    lock-on-active true
     when
         $osoba:Osoba(qOsoba.getBrojClanovaPorodice()==1)
     then
         System.out.println("Osoba je samac(" + $osoba.getId()+")");
-        modify($osoba){setBrojClanovaPorodice(BrojClanovaPorodice.SAMAC)}
+        $osoba.setBrojClanovaPorodice(BrojClanovaPorodice.SAMAC);
+        update($osoba);
 end
 rule "Osoba zivi kao par"
     agenda-group "based_on_person"
+    lock-on-active true
     when
         $osoba:Osoba(qOsoba.getBrojClanovaPorodice()==2)
     then
         System.out.println("Osoba zivi kao par(" + $osoba.getId()+")");
-        modify($osoba){setBrojClanovaPorodice(BrojClanovaPorodice.PAR)}
+        $osoba.setBrojClanovaPorodice(BrojClanovaPorodice.PAR);
+        update($osoba);
 end
 rule "Osoba zivi sa viseclanom porodici"
     agenda-group "based_on_person"
+    lock-on-active true
     when
         $osoba:Osoba(qOsoba.getBrojClanovaPorodice()>2)
     then
         System.out.println("Osoba zivi sa viseclanom porodicom(" + $osoba.getId()+")");
-        modify($osoba){setBrojClanovaPorodice(BrojClanovaPorodice.VISECLANA_PORODICA)}
+        $osoba.setBrojClanovaPorodice(BrojClanovaPorodice.VISECLANA_PORODICA);
+        update($osoba);
 end
 rule "Osoba je mlada"
     agenda-group "based_on_person"
+    lock-on-active true
     when
         $osoba:Osoba(qOsoba.getGodiste()<=30)
     then
         System.out.println("Osoba je mlada(" + $osoba.getId()+")");
-        modify($osoba){setGodiste(Godiste.MLADA_OSOBA)}
+        $osoba.setGodiste(Godiste.MLADA_OSOBA);
+        update($osoba);
 end
 rule "Osoba je srednjih godina"
     agenda-group "based_on_person"
+    lock-on-active true
     when
         $osoba:Osoba(qOsoba.getGodiste()>30 && qOsoba.getGodiste()<=55)
     then
         System.out.println("Osoba je srednjih godina(" + $osoba.getId()+")");
-        modify($osoba){setGodiste(Godiste.SREDNJE_GODINE)}
+        $osoba.setGodiste(Godiste.SREDNJE_GODINE);
+        update($osoba);
 end
 rule "Osoba je starije"
     agenda-group "based_on_person"
+    lock-on-active true
     when
         $osoba:Osoba(qOsoba.getGodiste()>55)
     then
         System.out.println("Osoba je starija(" + $osoba.getId()+")");
-        modify($osoba){setGodiste(Godiste.STARIJA_OSOBA)}
+        $osoba.setGodiste(Godiste.STARIJA_OSOBA);
+        update($osoba);
 end

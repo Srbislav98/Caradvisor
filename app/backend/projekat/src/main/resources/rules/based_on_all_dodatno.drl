@@ -1,0 +1,63 @@
+package rules;
+dialect  "mvel"
+
+import com.sw.projekat.model.AutomobilQuery
+import com.sw.projekat.model.Automobil
+import com.sw.projekat.model.DodatneKarakteristike
+import com.sw.projekat.model.enums.*
+import com.sw.projekat.model.User
+import com.sw.projekat.model.Osoba
+
+import java.util.ArrayList
+
+global AutomobilQuery q
+
+rule "Slicna karoserija automobila - dodatno "
+    agenda-group "based_on_all_dodatno"
+    salience 10
+    lock-on-active true
+    when
+        $automobil:Automobil((getKaroserija()!=q.getKaroserija()),
+        (getDodatneKarakteristike().isKaroserijaPorodicni() || getDodatneKarakteristike().isKaroserijaDzipovi()
+        || getDodatneKarakteristike().isKaroserijaSportskiLjetni()))
+    then
+        System.out.println("Slicna karoserija automobila - dodatno(" + $automobil.getNaziv()+")");
+        $automobil.addToScore(5);
+        update($automobil);
+end
+rule "Porodicni automobil - dodatno"
+    agenda-group "based_on_all_dodatno"
+    salience 10
+    lock-on-active true
+    when
+        $automobil:Automobil(getDodatneKarakteristike().isPorodicni()==true)
+        $user:User(isSearched("karavan") ||isSearched("minivan")  || isSearched("dzip") )
+    then
+//        System.out.println("Porodicni automobil - dodatno(" + $automobil.getDodatneKarakteristike().isPorodicni()+")");
+        System.out.println("Porodicni automobil - dodatno(" + $automobil.getNaziv()+")");
+        $automobil.addToScore(5);
+        update($automobil);
+end
+rule "Momacki automobil - dodatno"
+    agenda-group "based_on_all_dodatno"
+    salience 10
+    lock-on-active true
+    when
+        $automobil:Automobil(getDodatneKarakteristike().isMomacki()==true)
+        $user:User(isDetailedSearched($automobil))
+    then
+        System.out.println("Momacki automobil - dodatno(" + $automobil.getNaziv()+")");
+        $automobil.addToScore(5);
+        update($automobil);
+end
+//rule "Novi auto"
+//    agenda-group "based_on_all_dodatno"
+//    salience 10
+//    lock-on-active true
+//    when
+//        $automobil:Automobil(getDodatneKarakteristike().isNovi()==true,getDodatneKarakteristike().isJeftin()==true)
+//    then
+//        System.out.println("Novi auto(" + $automobil.getNaziv()+")");
+//        $automobil.addToScore(5);
+//        update($automobil);
+//end
