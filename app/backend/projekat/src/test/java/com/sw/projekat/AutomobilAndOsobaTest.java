@@ -32,7 +32,7 @@ public class AutomobilAndOsobaTest {
         kieSession.getAgenda().getAgendaGroup("based_on_person").setFocus();
         kieSession.fireAllRules();
 
-        AutomobilQuery q2=new AutomobilQuery(1L,"BMW", Karoserija.DZIP,4000,2010,Gorivo.BENZIN,true,100,Boja.CRNA);
+        AutomobilQuery q2=new AutomobilQuery(1L,"BMW", Karoserija.LIMUZINA,4000,2010,Gorivo.BENZIN,true,100,Boja.CRNA);
         kieSession.setGlobal("q", q2);
         Automobil automobil=new Automobil("bmw","BMW", Karoserija.KARAVAN,2000,2014,Gorivo.BENZIN,false,54,Boja.PLAVA,0);
         kieSession.insert(automobil);
@@ -41,13 +41,16 @@ public class AutomobilAndOsobaTest {
 
         User user=new User();
         ArrayList<String> lista=new ArrayList<String>();
-        lista.add("bmw najnoviji");
+        lista.add("bmw dobar");
         lista.add("mercedes najbolji");
         user.setPretraga(lista);
         kieSession.insert(user);
 
         kieSession.getAgenda().getAgendaGroup("based_on_car_and_person").setFocus();
         kieSession.fireAllRules();
+        kieSession.getAgenda().getAgendaGroup("based_on_all_dodatno").setFocus();
+        kieSession.fireAllRules();
+
 
         assertEquals(o.getBrojClanovaPorodice(),BrojClanovaPorodice.VISECLANA_PORODICA);
         assertEquals(o.getGodiste(),Godiste.SREDNJE_GODINE);
@@ -69,7 +72,7 @@ public class AutomobilAndOsobaTest {
         kieSession.getAgenda().getAgendaGroup("based_on_person").setFocus();
         kieSession.fireAllRules();
 
-        AutomobilQuery q2=new AutomobilQuery(1L,"BMW", Karoserija.DZIP,4000,2010,Gorivo.BENZIN,true,100,Boja.CRNA);
+        AutomobilQuery q2=new AutomobilQuery(1L,"BMW", Karoserija.LIMUZINA,4000,2010,Gorivo.BENZIN,true,100,Boja.CRNA);
         kieSession.setGlobal("q", q2);
         Automobil automobil=new Automobil("bmw","BMW", Karoserija.KARAVAN,2000,2014,Gorivo.BENZIN,false,54,Boja.PLAVA,0);
         kieSession.insert(automobil);
@@ -78,12 +81,15 @@ public class AutomobilAndOsobaTest {
 
         User user=new User();
         ArrayList<String> lista=new ArrayList<String>();
-        lista.add("bmw najnoviji");
+        lista.add("KARAVAN najnoviji");
         lista.add("dzip najbolji");
         user.setPretraga(lista);
         kieSession.insert(user);
 
         kieSession.getAgenda().getAgendaGroup("based_on_car_and_person").setFocus();
+        kieSession.fireAllRules();
+
+        kieSession.getAgenda().getAgendaGroup("based_on_all_dodatno").setFocus();
         kieSession.fireAllRules();
 
         assertEquals(o.getBrojClanovaPorodice(),BrojClanovaPorodice.VISECLANA_PORODICA);
@@ -106,7 +112,7 @@ public class AutomobilAndOsobaTest {
         kieSession.getAgenda().getAgendaGroup("based_on_person").setFocus();
         kieSession.fireAllRules();
 
-        AutomobilQuery q2=new AutomobilQuery(1L,"BMW", Karoserija.DZIP,4000,2010,Gorivo.BENZIN,true,100,Boja.CRNA);
+        AutomobilQuery q2=new AutomobilQuery(1L,"BMW", Karoserija.LIMUZINA,4000,2010,Gorivo.BENZIN,true,100,Boja.CRNA);
         kieSession.setGlobal("q", q2);
         Automobil automobil=new Automobil("bmw","BMW", Karoserija.KARAVAN,2000,2014,Gorivo.BENZIN,false,54,Boja.BRAON,0);
         kieSession.insert(automobil);
@@ -125,7 +131,7 @@ public class AutomobilAndOsobaTest {
 
         assertEquals(o.getBrojClanovaPorodice(),BrojClanovaPorodice.VISECLANA_PORODICA);
         assertEquals(o.getGodiste(),Godiste.SREDNJE_GODINE);
-        assertEquals(automobil.getScore(),100);
+        assertEquals(automobil.getScore(),85);
         System.out.println("pravilo - muski automobil!");
         System.out.println("pravilo - poslovni automobil!");
         kieSession.dispose();
@@ -162,7 +168,7 @@ public class AutomobilAndOsobaTest {
 
         assertEquals(o.getBrojClanovaPorodice(),BrojClanovaPorodice.VISECLANA_PORODICA);
         assertEquals(o.getGodiste(),Godiste.SREDNJE_GODINE);
-        assertEquals(automobil.getScore(),95);
+        assertEquals(automobil.getScore(),75);
         System.out.println("pravilo - zenski automobil!");
 
         kieSession.dispose();

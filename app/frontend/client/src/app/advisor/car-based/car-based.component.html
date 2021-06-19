@@ -26,7 +26,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="cena">Cena (evro):</label>
                 <div class="col-sm-10">
-                <input type="number" class="form-control" id="Cena"  placeholder="cena" formControlName="cena" value="">
+                <input type="number" min="100" max="10000000" class="form-control" id="Cena"  placeholder="cena" formControlName="cena" value="">
                 <small class="text-danger" 
                 *ngIf="regForm.controls.cena.touched && regForm.controls.cena.errors?.required">
                 Ne može ostati prazno polje</small>
@@ -35,7 +35,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="godiste">Godište:</label>
                 <div class="col-sm-10">
-                <input type="number" class="form-control" id="Godiste"  placeholder="godište" formControlName="godiste" value="">
+                <input type="number" min="1900" max="2022" class="form-control" id="Godiste"  placeholder="godište" formControlName="godiste" value="">
                 <small class="text-danger" 
                 *ngIf="regForm.controls.godiste.touched && regForm.controls.godiste.errors?.required">
                 Ne može ostati prazno polje</small>
@@ -67,7 +67,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="kubikaza">Kubikaža (KS):</label>
                 <div class="col-sm-10">
-                <input type="number" class="form-control" id="Kubikaza"  placeholder="kubikaža" formControlName="kubikaza" value="">
+                <input type="number" min="10" max="10000000" class="form-control" id="Kubikaza"  placeholder="kubikaža" formControlName="kubikaza" value="">
                 <small class="text-danger" 
                 *ngIf="regForm.controls.kubikaza.touched && regForm.controls.cena.errors?.kubikaza">
                 Ne može ostati prazno polje</small>

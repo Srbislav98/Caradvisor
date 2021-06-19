@@ -49,7 +49,7 @@ public class AutomobilController {
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(value="/create")
-    public ResponseEntity<AutomobilDTO> yourTopCarsBasedOnYou(@RequestBody AutomobilDTO autoDTO){
+    public ResponseEntity<AutomobilDTO> yourTopCarsBasedOnYou(@RequestBody AutomobilDTO autoDTO) throws Exception {
         automobilService.createCar(autoDTO);
         return new ResponseEntity<AutomobilDTO>(autoDTO, HttpStatus.OK);
     }

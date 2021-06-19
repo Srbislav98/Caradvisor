@@ -13,7 +13,7 @@ rule "Tacna marka automobila"
     agenda-group "based_on_car"
     lock-on-active true
     when
-        $automobil:Automobil(getMarka()==q.getMarka())
+        $automobil:Automobil(getMarka().equalsIgnoreCase(q.getMarka()))
     then
         System.out.println("Tacna marka automobila(" + $automobil.getNaziv()+")");
         $automobil.addToScore(20);

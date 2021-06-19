@@ -155,8 +155,13 @@ public class AutomobilService {
         return automobilRepository.findDistinctByNazivContainingIgnoreCaseOrMarkaContainingIgnoreCaseOrderByNaziv(pageable,content,content);
     }
 
-    public void createCar(AutomobilDTO autoDTO) {
+    public void createCar(AutomobilDTO autoDTO) throws Exception {
         Automobil auto =AutomobilDTOMapper.fromDTO(autoDTO);
+        Automobil imaAuto=null;
+        imaAuto =automobilRepository.findByNaziv(auto.getNaziv());
+        if (imaAuto!=null){
+            throw new Exception("Automobil sa ovim nazivom vec postoji");
+        }
         automobilRepository.save(auto);
     }
 

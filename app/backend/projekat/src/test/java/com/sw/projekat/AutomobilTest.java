@@ -36,10 +36,10 @@ public class AutomobilTest {
 
         kieSession.getAgenda().getAgendaGroup("based_on_car").setFocus();
         kieSession.fireAllRules();
-        System.out.println("Tacna marka(20)+Slicna karoserija-porodicni(10)+Cena je do 50% manja " +
+        System.out.println("Tacna marka(20)+Slicna karoserija-porodicni+Cena je do 50% manja " +
                 "od unesene okvirne cene(20)+Godiste automobila je u rangu ± 5(20)+Tacno gorivo automobila(10)" +
-                " = 80 BODOVA");
-        assertEquals(automobil.getScore(),80);
+                " = 70 BODOVA");
+        assertEquals(automobil.getScore(),70);
         kieSession.dispose();
     }
     @Test
@@ -74,10 +74,10 @@ public class AutomobilTest {
 
         kieSession.getAgenda().getAgendaGroup("based_on_car").setFocus();
         kieSession.fireAllRules();
-        System.out.println("Slicna karoserija automobila - dzipovi(10)+Godište automobila je u rangu ± 5(20)+Slicna grupa goriva automobila - ekoloski(5)" +
-                "+Kubikaza automobila je u rangu ± 10(20)+Slicna grupa boje automobila - muska(5)" +
-                " = 60 BODOVA");
-        assertEquals(automobil.getScore(),60);
+        System.out.println("Slicna karoserija automobila - dzipovi+Godište automobila je u rangu ± 5(20)+Slicna grupa goriva automobila - ekoloski(5)" +
+                "+Kubikaza automobila je u rangu ± 10(20)+Slicna grupa boje automobila - muska" +
+                " = 45 BODOVA");
+        assertEquals(automobil.getScore(),45);
         kieSession.dispose();
     }
     @Test
@@ -93,10 +93,10 @@ public class AutomobilTest {
 
         kieSession.getAgenda().getAgendaGroup("based_on_car").setFocus();
         kieSession.fireAllRules();
-        System.out.println("Slicna karoserija automobila - sportski/ljetni(10)+Godište automobila je u rangu ± 10(10)+Slicna grupa goriva automobila - benzinac(5)+" +
-                "Kubikaza automobila je u rangu ± 40(5)+Slicna grupa boje automobila - zenska(5)" +
-                " = 35 BODOVA");
-        assertEquals(automobil.getScore(),35);
+        System.out.println("Slicna karoserija automobila - sportski/ljetni+Godište automobila je u rangu ± 10(10)+Slicna grupa goriva automobila - benzinac(5)+" +
+                "Kubikaza automobila je u rangu ± 40(5)+Slicna grupa boje automobila - zenska" +
+                " = 20 BODOVA");
+        assertEquals(automobil.getScore(),20);
         kieSession.dispose();
     }
 }

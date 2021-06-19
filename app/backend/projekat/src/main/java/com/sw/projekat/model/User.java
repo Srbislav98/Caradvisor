@@ -7,6 +7,8 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -53,7 +55,8 @@ public class User implements UserDetails {
     private List<String> pretraga = new ArrayList<String>();
 
     @OneToMany(fetch = FetchType.EAGER)
-    @Column(name = "detaljna_pretraga")
+    @JoinColumn(name = "detaljna_pretraga",referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Automobil> detaljna_pretraga = new HashSet<Automobil>();
 
     @ManyToMany(fetch = FetchType.EAGER)

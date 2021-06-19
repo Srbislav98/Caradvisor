@@ -31,7 +31,7 @@ rule "Porodicni automobil - dodatno"
     lock-on-active true
     when
         $automobil:Automobil(getDodatneKarakteristike().isPorodicni()==true)
-        $user:User(isSearched("karavan") ||isSearched("minivan")  || isSearched("dzip") )
+        $user:User(isSearched("karavan") ||isSearched("minivan")  || isSearched("limuzina") )
     then
 //        System.out.println("Porodicni automobil - dodatno(" + $automobil.getDodatneKarakteristike().isPorodicni()+")");
         System.out.println("Porodicni automobil - dodatno(" + $automobil.getNaziv()+")");

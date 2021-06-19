@@ -63,20 +63,23 @@ export class CarAddComponent implements OnInit {
         if(this.fileToUpload!==null && this.car.naziv!==null){
           this.fotoService.createForCar(this.fileToUpload,this.car.naziv).subscribe(
             data=>{
+              console.log("MONAKO");
               this.toastr.success('Uspešno dodat automobil.');
               this.router.navigate(['']);
             },
             error=>{
+              console.log("ANGOLA");
               this.toastr.error("Neuspešno dodata fotografija. Proverite da li je to stvarno fotografija.");
             }
           )
           }else{
+            console.log("KENIJA");
             this.toastr.success('Uspešno dodat automobil.');
             this.router.navigate(['']);
           }
       },
       error=>{
-        this.toastr.error("Neuspešno dodat automobil. Proverite unesene podatke da li su validni (naziv automobila treba biti jedinstven,fotografija mora biti ubačena).");
+        this.toastr.error("Neuspešno dodat automobil. Proverite unesene podatke da li su validni (naziv automobila treba biti jedinstven,fotografija mora biti validna).");
       }
     )
   }
