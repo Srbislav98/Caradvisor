@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 // POJO koji implementira Spring Security UserDetails interfejs koji specificira
 // osnovne osobine Spring korisnika (koje role ima, da li je nalog zakljucan, istekao, da li su kredencijali istekli)
 @Entity
-@Table(name="USERS")
+@Table(name="KORISNIK")
 public class User implements UserDetails {
 
     private static final long serialVersionUID = 1L;
