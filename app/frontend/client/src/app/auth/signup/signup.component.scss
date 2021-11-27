@@ -20,9 +20,14 @@
   font-weight: bold;
  }
  #vrsta{
- display: table 
+ display: table ;
+ width:100%;
  }
  .celija{
  display: table-cell;
  margin: 2 2 15px;
+ }
+
+ label{
+     font-weight:500;
  }

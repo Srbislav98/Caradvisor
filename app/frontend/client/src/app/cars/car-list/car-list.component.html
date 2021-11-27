@@ -1,11 +1,13 @@
 <div class="w-100 h-100 p-3">
-	<h1 style="margin: 0 auto;text-align: center;">CarAdvisor</h1>
-	<form [formGroup]="regForm1" (ngSubmit)="regIn()" class="form-inline">
-		<div class="form-group mx-sm-0 mb-2">
-		  <input type="text" class="form-control" id="podatak" formControlName="podatak" placeholder="pretraži po nazivu...">
+	<h1 style="margin: 0 auto;margin-bottom:20px;text-align: center;text-transform: uppercase;font-style:italic ;"><span style="color:rgb(24,119,140);">Car</span> Advisor</h1>
+	<form [formGroup]="regForm1" (ngSubmit)="regIn()" class="form-inline" style="justify-content: center;">
+		<div class="form-group mx-sm-0 mb-2" style="order: 1; width:75%;">
+		  <input type="text" style="width: 100%;" class="form-control" id="podatak" formControlName="podatak" placeholder="Pretraži po nazivu...">
 		</div>
-    <button type="submit" class="btn btn-secondary mb-2" id="filter_content">Pretraži</button>
-	<button class="btn btn-primary mb-2"  id="reset-button" (click)="ngOnInit()">Resetuj</button>
+		<div style="order:2;">
+			<button mat-mini-fab type="submit" class="btn btn-secondary mb-2" style="background-color:#007bff; margin-right:10px;" id="filter_content"><mat-icon>search</mat-icon></button>
+			<button mat-mini-fab style="background-color:#007bff;" class="btn btn-primary mb-2"  id="reset-button" (click)="ngOnInit()"><mat-icon>refresh</mat-icon></button>		
+		</div>
 	</form>
 	<div class="row">
 		<div class="col">

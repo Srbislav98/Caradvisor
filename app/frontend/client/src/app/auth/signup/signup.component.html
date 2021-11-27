@@ -14,7 +14,7 @@
         </div>-->
         <div class="form-group">
 			<label for="username">Korisničko ime: </label>
-            <input type="text" class="form-control" id="username"  placeholder="korisničko ime" formControlName="username">
+            <input type="text" class="form-control" id="username"  placeholder="Korisničko ime" formControlName="username">
 			<small class="text-danger" 
 				*ngIf="regForm.controls.username.touched && regForm.controls.username.errors?.required">
 				Korisničko ime je obavezno</small>
@@ -22,14 +22,14 @@
 		<div class="form-group" id = "vrsta">
 			<div class = "celija">
 				<label for="ime">Ime: </label>
-                <input type="text" class="form-control" id="Name"  placeholder="ime" formControlName="ime">
+                <input type="text" class="form-control" id="Name"  placeholder="Ime" formControlName="ime">
                 <small class="text-danger" 
                     *ngIf="regForm.controls.ime.touched && regForm.controls.ime.errors?.required">
                     Ime je obavezno</small>
    			</div>
    			<div class = "celija">
    				<label for="prezime">Prezime: </label>
-                   <input type="text" class="form-control" id="Surname"  placeholder="prezime" formControlName="prezime">
+                   <input type="text" class="form-control" id="Surname"  placeholder="Prezime" formControlName="prezime">
                    <small class="text-danger" 
                        *ngIf="regForm.controls.prezime.touched && regForm.controls.prezime.errors?.required">
                        Prezime je obavezno</small>
@@ -37,7 +37,7 @@
         </div>
         <div class="form-group">
 			<label for="password">Lozinka: </label>
-            <input type="password" class="form-control" id="password" placeholder="lozinka" formControlName="password">
+            <input type="password" class="form-control" id="password" placeholder="Lozinka" formControlName="password">
 			<small class="text-danger" 
 				*ngIf="regForm.controls.password.touched && regForm.controls.password.errors?.required">
 				Lozinka je obavezna</small>
