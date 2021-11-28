@@ -1,22 +1,25 @@
-<h1>CarAdvisor</h1>
-<p style="text-align:center;font-size: large;font-weight: 700;">CarAdvisor treba pomoći korisniku pri izboru automobila. 60 miliona automobila se 
+<div style="width: 1100px;height:500px;background-color: rgba(255,255,255,0.7);margin:0 auto;margin-top:20px;padding:30px;border-radius:10px;">
+    <h1 style="color:rgba(0, 0, 0, 0.87);font-style:italic;"><span style="color:rgb(24,119,140);">Car</span>Advisor</h1>
+<p style="font-size: 20px;">CarAdvisor treba pomoći korisniku pri izboru automobila. 60 miliona automobila se 
     proizvede godišnje (to je 165 000 dnevno, 6 875 po satu, 115 u minuti), a trenutno se u 
     svetu koristi milijardu automobila. Prema jednom istraživanju 70% ispitanika izjavilo je da 
     gaji snažna osećanja ka svom automobilu. Automobil je mnogima najbolji prijatelj, čak i više 
     od toga. Zato izbor automobila predstavlja veoma bitnu stvar.
 </p>
-<div class="w-50 h-100 p-5" style="float:left;">
-    <div style="background-color: white;border-radius:5px;">
+
+<div class="w-50 p-5" style="float:left;">
+    <div style="border:1px solid black;padding:10px;font-size:14px;border-radius:5px;min-height: 150px;position: relative;">
     <p>Izaberite automobil baziran na željenim karakteristikama samo automobila.
     </p>
-    <button mat-raised-button color="primary" id="choose-button" (click)="carBased()">Auto</button>
+    <button style="position: absolute;bottom: 10px;left:160px;;" mat-raised-button color="primary" id="choose-button" (click)="carBased()">Auto</button>
     </div>
 </div>
-<div class="w-50 h-100 p-5" style="float:right;">
-    <div style="background-color: white;border-radius:5px;">
+<div class="w-50 p-5" style="float:right;">
+    <div style="border:1px solid black;padding:10px;font-size:14px;border-radius:5px;min-height: 150px;position: relative;">
     <p>Izaberite automobil baziran na željenim karakteristikama automobila i osobe koja bi koristila 
         taj automobil.
     </p>
-    <button mat-raised-button color="primary" id="choose-button" (click)="personBased()">Auto+Osoba</button>
+    <button style="position: absolute; bottom: 10px; left:150px;" mat-raised-button color="primary" id="choose-button" (click)="personBased()">Auto+Osoba</button>
     </div>
+</div>
 </div>

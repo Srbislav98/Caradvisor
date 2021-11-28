@@ -45,8 +45,10 @@
     </table>
     <div style="float: right; margin-top:10px;">
         <form (ngSubmit)="natrag()" style="float:right;">
-            <button type="submit" id="backBtn" class=" btn btn-secondary">Natrag</button></form>
-        <form (ngSubmit)="Obrisi()" style="float:right; margin-right:10px;"><button type="submit" *ngIf="uloga==='ROLE_ADMIN'" id="deleteBtn" mat-raised-button class="btn btn-secondary" style="background-color: #FF4B5B;;">Obriši</button><br/><br/></form>
+            <button type="submit" id="backBtn"  mat-raised-button class=" btn btn-secondary">Natrag</button></form>
+        <form (ngSubmit)="Obrisi()" style="float:right; margin-right:10px;">
+            <button type="submit" *ngIf="uloga==='ROLE_ADMIN'" id="deleteBtn" mat-raised-button class="btn btn-secondary" style="background-color: #FF4B5B;;">Obriši</button>
+        </form>
     </div>
 </div>
 <!-- <div class="w-50 h-100 p-5" style="float:left;"> -->
